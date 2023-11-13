@@ -1,6 +1,6 @@
 package at.spengergasse.cooking.recipes.domain;
 
-import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import org.springframework.data.annotation.Id;
@@ -14,11 +14,15 @@ import java.util.List;
 public class Recipe {
     @Id
     public String key;
-    public String username;
-    public String userKey;
+    public User author;
+    public String description;
     @Size(min = 1)
     public List<Ingredient> ingredients;
     public ZonedDateTime creationTS;
+    @Min(0)
     public int likes;
-
+    public NutrientSummary nutrientSummary;
+    public List<Category> categories;
+    public List<Comment> comments;
+    public Difficulty difficulty;
 }
