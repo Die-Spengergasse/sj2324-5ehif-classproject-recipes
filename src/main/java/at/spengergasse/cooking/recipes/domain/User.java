@@ -6,5 +6,4 @@ import org.springframework.data.mongodb.core.mapping.Document;
 public class User {
     public String userKey;
     public String username;
-    public String profilePictureID;
 }
