@@ -1,0 +1,66 @@
+@startuml
+class Ingredient {
+    ExternalKey reference
+    String name
+    double amount
+    Unit unit
+}
+class Category {
+    String name
+    Optional<Category> parent
+}
+class Recipe {
+    String title
+    Category[] categories
+    String description
+    String instructions
+    Ingredient[] ingredients
+    int likes
+    User author
+    Difficulty difficulty
+    Comment[] comments
+    NutrientSummary nutrientSummary
+    ZonedDateTime creationTS
+    String titlePictureID
+}
+class NutrientSummary <<record; value-object>> {
+    int kcal
+    double carbs
+    double fats
+    double protein
+}
+enum Difficulty <<value-object>> {
+    BEGINNER
+    ADVANCED
+    PRO
+    CHEF
+}
+class Comment <<value-object>> {
+    ZonedDateTime creationTS
+    User author
+    String content
+    Optional<Comment> parent
+}
+class User{
+    String userKey
+    String username
+}
+
+enum Unit {
+    GRAMS
+    MILLILITER
+    TABLESPOONS
+    TEASPOONS
+    PACK
+    PINCH
+}
+
+Category -- Recipe
+Comment -- Recipe
+Comment -- User
+Recipe -- User
+Difficulty -- Recipe
+Recipe -- Ingredient
+Recipe -- NutrientSummary
+Ingredient -- Unit
+@enduml

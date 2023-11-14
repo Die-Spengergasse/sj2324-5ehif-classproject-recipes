@@ -1,14 +1,11 @@
 package at.spengergasse.cooking.recipes.domain;
 
-import lombok.NonNull;
-import org.springframework.data.mongodb.core.mapping.Document;
-
 import java.time.ZonedDateTime;
+import java.util.Optional;
 
-@Document
 public class Comment {
     public User author;
-    public String commentKey;
-    public String parentComment;
+    public String comment;
+    public Optional<Comment> parentComment;
     public ZonedDateTime creationTS;
 }
