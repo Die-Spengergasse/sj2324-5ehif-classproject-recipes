@@ -1,11 +1,12 @@
 package at.spengergasse.cooking.recipes.domain;
 
+import lombok.AllArgsConstructor;
 import java.time.ZonedDateTime;
-import java.util.Optional;
 
+@AllArgsConstructor
 public class Comment {
     public User author;
     public String comment;
-    public Optional<Comment> parentComment;
+    public Comment parentComment;
     public ZonedDateTime creationTS;
 }
