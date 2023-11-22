@@ -11,4 +11,7 @@ public interface RecipeRepository extends MongoRepository<Recipe, ObjectId> {
     @Query("{}")
     List<Recipe> findRecipes();
 
+    Recipe findRecipeByKey(String key);
+    void deleteRecipeByKey(String key);
+
 }
