@@ -1,6 +1,5 @@
 package at.spengergasse.cooking.recipes.domain.utils;
 
-import java.util.IllegalFormatException;
 import java.util.Random;
 
 /**
@@ -14,6 +13,8 @@ public record Key(String prefix, String value, String checkDigits) {
     private static final String LOCAL_PREFIX = "RECIPE";
     private static final String CHARACTERS = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
     private static final int LENGTH = 4;
+    public static final String RECIPE_PREFIX = "REC";
+    public static final int RECIPE_LENGTH = 15;
 
     @Override
     public String toString() {
@@ -41,10 +42,10 @@ public record Key(String prefix, String value, String checkDigits) {
      * Generates the random part of a key with length {@link Key#LENGTH} and charset {@link Key#CHARACTERS}.
      * @return the generated random part.
      */
-    private static String generateRandomPart() {
+    private static String generateRandomPart(int length) {
         final StringBuilder builder = new StringBuilder();
 
-        for(int i = 0; i < Key.LENGTH; i++) {
+        for(int i = 0; i < length ; i++) {
             builder.append(Key.CHARACTERS.charAt(Key.RANDOM.nextInt(Key.CHARACTERS.length())));
         }
 
@@ -64,9 +65,8 @@ public record Key(String prefix, String value, String checkDigits) {
      * Generates a random key with the {@link Key#LOCAL_PREFIX} .
      * @return the generated key.
      */
-    public static Key randomKey() {
-        final String prefix = Key.LOCAL_PREFIX;
-        final String value = Key.generateRandomPart();
+    public static Key randomKey(String prefix, int length) {
+        final String value = Key.generateRandomPart(length);
         final String checkDigits = Key.generateCheckDigits(prefix, value);
 
         return new Key(prefix, value, checkDigits);
