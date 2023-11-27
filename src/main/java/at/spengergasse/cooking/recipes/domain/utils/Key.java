@@ -9,10 +9,7 @@ import java.util.Random;
 public record Key(String prefix, String value, String checkDigits) {
     private static final Random RANDOM = new Random();
     private static final Mod37_2 MOD_37_2 = new Mod37_2();
-
-    private static final String LOCAL_PREFIX = "RECIPE";
     private static final String CHARACTERS = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
-    private static final int LENGTH = 4;
     public static final String RECIPE_PREFIX = "REC";
     public static final int RECIPE_LENGTH = 15;
 
@@ -39,7 +36,7 @@ public record Key(String prefix, String value, String checkDigits) {
     }
 
     /**
-     * Generates the random part of a key with length {@link Key#LENGTH} and charset {@link Key#CHARACTERS}.
+     * Generates the random part of a key with given length and charset {@link Key#CHARACTERS}.
      * @return the generated random part.
      */
     private static String generateRandomPart(int length) {
@@ -62,7 +59,7 @@ public record Key(String prefix, String value, String checkDigits) {
     }
 
     /**
-     * Generates a random key with the {@link Key#LOCAL_PREFIX} .
+     * Generates a random key with the given prefix.
      * @return the generated key.
      */
     public static Key randomKey(String prefix, int length) {
