@@ -21,11 +21,14 @@ public record Key(String prefix, String value, String checkDigits) {
     /**
      * Ensures that the {@link Key} is valid.
      * @throws IllegalStateException   if not valid
+     * @return this
      */
-    public void ensureValid() throws IllegalStateException {
+    public Key ensureValid() throws IllegalStateException {
         if(!this.isValid()) {
             throw new IllegalStateException("Key is invalid.");
         }
+
+        return this;
     }
 
     /**
