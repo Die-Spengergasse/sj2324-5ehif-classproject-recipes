@@ -16,9 +16,15 @@
 	<properties>
 		<java.version>21</java.version>
 		<dependencies.spring.version>3.1.5</dependencies.spring.version>
+		<dependencies.springdoc.version>2.2.0</dependencies.springdoc.version>
 		<dependencies.testcontainers.version>1.18.3</dependencies.testcontainers.version>
 	</properties>
 	<dependencies>
+		<dependency>
+			<groupId>org.springdoc</groupId>
+			<artifactId>springdoc-openapi-starter-webmvc-ui</artifactId>
+			<version>${dependencies.springdoc.version}</version>
+		</dependency>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-data-mongodb</artifactId>
