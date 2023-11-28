@@ -6,10 +6,7 @@ POST http://{{host}}:{{port}}/api/recipes/
 Content-Type:application/json
 
 {
-  "author": {
-    "id": "<randomKey>",
-    "name": "Thomas"
-  },
+  "authorKey":  "yxcyxc",
   "description": "A test recipe",
   "categories": [
     {

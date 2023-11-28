@@ -1,6 +1,7 @@
 package at.spengergasse.cooking.recipes.service;
 
 import at.spengergasse.cooking.recipes.domain.Recipe;
+import at.spengergasse.cooking.recipes.domain.User;
 import at.spengergasse.cooking.recipes.domain.utils.Key;
 import at.spengergasse.cooking.recipes.persistance.RecipeRepository;
 import at.spengergasse.cooking.recipes.service.commands.CreateRecipeCommand;
@@ -20,6 +21,7 @@ public class RecipeService {
         Recipe recipe = Recipe.builder()
                 .title(cmd.title())
                 .description(cmd.description())
+                .author(new User(cmd.authorKey(), "JohnDoe"))
                 .ingredients(cmd.ingredientList())
                 .categories(cmd.categories())
                 .difficulty(cmd.difficulty())

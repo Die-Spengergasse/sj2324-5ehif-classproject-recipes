@@ -3,10 +3,7 @@ package at.spengergasse.cooking.recipes.domain;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.NonNull;
-import lombok.RequiredArgsConstructor;
+import lombok.*;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
@@ -17,6 +14,7 @@ import java.util.List;
 @RequiredArgsConstructor
 @Document("recipes")
 @AllArgsConstructor
+@NoArgsConstructor(access = AccessLevel.PROTECTED) // todo: check if private would work
 public class Recipe {
     @Id
     @NonNull
