@@ -28,8 +28,6 @@ public class NutrientController {
 
     @PostMapping("/")
     public HttpEntity<NutrientSummary> createRecipe(@RequestBody @Valid NutrientSummary nutrientSummary){
-        nutrientRepository.save(nutrientSummary);
-
-        return ResponseEntity.ok().body(nutrientSummary);
+        return ResponseEntity.ok().body(nutrientRepository.save(nutrientSummary));
     }
 }
