@@ -2,6 +2,10 @@ GET http://{{host}}:{{port}}/api/recipes/
 
 ###
 
+GET http://{{host}}:{{port}}/api/recipes/{{key}}
+
+###
+
 POST http://{{host}}:{{port}}/api/recipes/
 Content-Type:application/json
 
@@ -14,6 +18,7 @@ Content-Type:application/json
       "parentId": null
     }
   ],
+  "title": "Test",
   "likes": 5,
   "key": "<randomKey>",
   "difficulty": "BEGINNER",
@@ -44,4 +49,32 @@ Content-Type:application/json
     "fat": 5
   },
   "titlePictureID": "picture123"
+}
+
+###
+
+PUT http://{{host}}:{{port}}/api/recipes/{{key}}
+Content-Type: application/json
+
+{
+  "title": "Test",
+  "description": "A test recipe",
+  "ingredients": [
+    {
+      "name": "Pasta",
+      "id": "<randomKey>",
+      "quantity": 100,
+      "unit": "GRAMS"
+    }
+  ],
+  "categories": [
+    {
+      "name": "Test",
+      "parentId": null
+    }
+  ],
+  "difficulty": "CHEF",
+  "titlePictureID": "picture123",
+  "authorKey":  "yxcyxc",
+  "username": "Thomas"
 }

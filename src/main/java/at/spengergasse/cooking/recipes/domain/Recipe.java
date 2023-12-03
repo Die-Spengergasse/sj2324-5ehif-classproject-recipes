@@ -14,6 +14,7 @@ import java.util.List;
 @RequiredArgsConstructor
 @Document("recipes")
 @AllArgsConstructor
+@Data
 @NoArgsConstructor(access = AccessLevel.PROTECTED) // todo: check if private would work
 public class Recipe {
     @Id
