@@ -63,7 +63,7 @@ public enum KeyType {
             if(key.startsWith(type.getPrefix())) {
                 final String value = key.substring(type.getPrefix().length(), key.length() - 1);
 
-                if(type.getLength() == value.length()) {
+                if(type.getLength() != value.length()) {
                     throw new IllegalArgumentException("Key value length mismatch");
                 }
 

@@ -2,6 +2,7 @@ package at.spengergasse.cooking.recipes.domain.utils;
 
 import at.spengergasse.cooking.recipes.domain.utils.key.Key;
 import at.spengergasse.cooking.recipes.domain.utils.key.KeyType;
+import static org.assertj.core.api.Assertions.*;
 import org.junit.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
@@ -13,5 +14,11 @@ public class KeyTest {
         final var key = KeyType.RECIPE.randomKey();
 
         key.ensureValid(KeyType.RECIPE);
+    }
+
+    @Test
+    public void parseKey() {
+        final var key = KeyType.RECIPE.randomKey().toString();
+        assertThat(key).isEqualTo(KeyType.parse(key).toString());
     }
 }
