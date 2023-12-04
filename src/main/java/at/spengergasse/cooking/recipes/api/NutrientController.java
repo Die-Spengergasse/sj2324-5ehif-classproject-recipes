@@ -1,8 +1,7 @@
 package at.spengergasse.cooking.recipes.api;
 
 import at.spengergasse.cooking.recipes.domain.NutrientSummary;
-import at.spengergasse.cooking.recipes.domain.Recipe;
-import at.spengergasse.cooking.recipes.persistance.NutrientRepository;
+import at.spengergasse.cooking.recipes.persistence.NutrientRepository;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpEntity;
