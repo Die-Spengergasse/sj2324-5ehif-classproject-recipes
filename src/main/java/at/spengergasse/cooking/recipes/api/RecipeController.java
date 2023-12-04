@@ -1,9 +1,9 @@
 package at.spengergasse.cooking.recipes.api;
 
 import at.spengergasse.cooking.recipes.domain.Recipe;
-import at.spengergasse.cooking.recipes.persistance.RecipeRepository;
-import at.spengergasse.cooking.recipes.service.RecipeService;
-import at.spengergasse.cooking.recipes.service.commands.CreateRecipeCommand;
+import at.spengergasse.cooking.recipes.persistence.RecipeRepository;
+import at.spengergasse.cooking.recipes.service.recipe.RecipeService;
+import at.spengergasse.cooking.recipes.service.recipe.commands.CreateRecipeCommand;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpEntity;

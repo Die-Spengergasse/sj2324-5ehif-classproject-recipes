@@ -1,5 +1,6 @@
 package at.spengergasse.cooking.recipes.domain;
 
+import at.spengergasse.cooking.recipes.domain.utils.key.Key;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
@@ -14,13 +15,13 @@ import java.util.List;
 @RequiredArgsConstructor
 @Document("recipes")
 @AllArgsConstructor
-@NoArgsConstructor(access = AccessLevel.PROTECTED) // todo: check if private would work
+@NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class Recipe {
     @Id
     @NonNull
-    public String key;
+    public Key key;
     @NonNull
-    public User author;
+    public CachedUser author;
     @NonNull
     @NotBlank(message = "Title must not be blank")
     public String title;

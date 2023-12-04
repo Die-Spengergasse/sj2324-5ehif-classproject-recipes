@@ -1,4 +1,4 @@
-package at.spengergasse.cooking.recipes.service.commands;
+package at.spengergasse.cooking.recipes.service.recipe.commands;
 
 import at.spengergasse.cooking.recipes.domain.Category;
 import at.spengergasse.cooking.recipes.domain.Difficulty;

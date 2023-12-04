@@ -1,4 +1,4 @@
-package at.spengergasse.cooking.recipes.domain.utils;
+package at.spengergasse.cooking.recipes.domain.utils.key;
 
 class Mod37_2 extends PureSystemCalculator {
 

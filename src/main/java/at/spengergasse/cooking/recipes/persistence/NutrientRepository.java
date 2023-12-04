@@ -1,4 +1,4 @@
-package at.spengergasse.cooking.recipes.persistance;
+package at.spengergasse.cooking.recipes.persistence;
 
 import at.spengergasse.cooking.recipes.domain.NutrientSummary;
 import org.bson.types.ObjectId;
