@@ -6,14 +6,15 @@ POST http://{{host}}:{{port}}/api/recipes/
 Content-Type:application/json
 
 {
-  "authorKey":  "yxcyxc",
-  "description": "A test recipe",
+  "authorKey": "yxcyxc",
+  "description": "The perfect lasagna recipe made with parmesan ricotta cheese filling, melted mozzarella cheese, lasagna noodles, and a robust tomato meat sauce. It is the best lasagna recipe!",
   "categories": [
     {
       "name": "Test",
       "parentId": null
     }
   ],
+  "title": "The Best Classic Lasagna Recipe",
   "likes": 5,
   "key": "<randomKey>",
   "difficulty": "BEGINNER",
