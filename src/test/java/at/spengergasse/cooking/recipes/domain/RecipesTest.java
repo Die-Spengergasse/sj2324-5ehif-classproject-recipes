@@ -76,7 +76,6 @@ public class RecipesTest {
                 .nutrientSummary(new NutrientSummary(10, 5, 5, 5))
                 .titlePictureID("picture123")
                 .build();
-        System.out.println(invalidRecipe.toString());
 
         // Validate the Recipe instance
         var violations = validator.validate(invalidRecipe);

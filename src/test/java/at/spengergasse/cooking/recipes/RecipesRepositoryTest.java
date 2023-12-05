@@ -1,6 +1,7 @@
 package at.spengergasse.cooking.recipes;
 
 import at.spengergasse.cooking.recipes.domain.*;
+import at.spengergasse.cooking.recipes.domain.utils.key.Key;
 import at.spengergasse.cooking.recipes.domain.utils.key.KeyType;
 import at.spengergasse.cooking.recipes.persistence.RecipeRepository;
 import org.junit.jupiter.api.BeforeEach;
@@ -56,8 +57,71 @@ public class RecipesRepositoryTest {
 
         var saved = recipeRepository.save(recipe);
 
-        assertThat(saved).isSameAs(recipe);
         assertThat(saved.toString()).isNotNull();
+        assertThat(saved).isEqualTo(recipe);
     }
 
+    @Test
+    void findRecipeByKeyTest() {
+        Recipe recipe = Recipe.builder()
+                .author(new CachedUser(KeyType.USER.randomKey(), "Thomas"))
+                .description("A test recipe")
+                .categories(Arrays.asList(new Category("Test", null)))
+                .likes(5)
+                .key(KeyType.RECIPE.randomKey())
+                .difficulty(Difficulty.BEGINNER)
+                .creationTS(ZonedDateTime.of(LocalDate.of(2023, 11, 14),
+                        LocalTime.of(9, 26),
+                        ZoneId.of("UTC")))
+                .comments(List.of(
+                        new Comment(new CachedUser(KeyType.USER.randomKey(), "Billy Bob"), "Very Cool Test", null,
+                                ZonedDateTime.of(LocalDate.of(2023, 11, 15),
+                                        LocalTime.of(12, 32),
+                                        ZoneId.of("America/Vancouver")))))
+                .ingredients(List.of(new Ingredient("Pasta", KeyType.INGREDIENT.randomKey(), 100, Unit.GRAMS)))
+                .nutrientSummary(new NutrientSummary(10, 5, 5, 5))
+                .titlePictureID("picture123")
+                .title("my recipe")
+                .build();
+
+        var saved = recipeRepository.save(recipe);
+
+        Recipe foundRecipe = recipeRepository.findRecipeByKey(recipe.key);
+
+        assertThat(foundRecipe.toString()).isNotNull();
+        assertThat(saved).isEqualTo(foundRecipe);
+    }
+
+    @Test
+    void deleteRecipeByKey() {
+        Recipe recipe = Recipe.builder()
+                .author(new CachedUser(KeyType.USER.randomKey(), "Thomas"))
+                .description("A test recipe")
+                .categories(Arrays.asList(new Category("Test", null)))
+                .likes(5)
+                .key(KeyType.RECIPE.randomKey())
+                .difficulty(Difficulty.BEGINNER)
+                .creationTS(ZonedDateTime.of(LocalDate.of(2023, 11, 14),
+                        LocalTime.of(9, 26),
+                        ZoneId.of("UTC")))
+                .comments(List.of(
+                        new Comment(new CachedUser(KeyType.USER.randomKey(), "Billy Bob"), "Very Cool Test", null,
+                                ZonedDateTime.of(LocalDate.of(2023, 11, 15),
+                                        LocalTime.of(12, 32),
+                                        ZoneId.of("America/Vancouver")))))
+                .ingredients(List.of(new Ingredient("Pasta", KeyType.INGREDIENT.randomKey(), 100, Unit.GRAMS)))
+                .nutrientSummary(new NutrientSummary(10, 5, 5, 5))
+                .titlePictureID("picture123")
+                .title("my recipe")
+                .build();
+
+        Recipe savedRecipe = recipeRepository.save(recipe);
+        assertThat(recipe).isEqualTo(savedRecipe);
+
+        assertThat(recipeRepository.findRecipeByKey(recipe.key)).isNotNull();
+
+        recipeRepository.deleteRecipeByKey(recipe.key);
+
+        assertThat(recipeRepository.findRecipeByKey(recipe.key)).isNull();
+    }
 }

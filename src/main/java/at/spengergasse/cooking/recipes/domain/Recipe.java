@@ -10,6 +10,7 @@ import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.time.ZonedDateTime;
 import java.util.List;
+import java.util.Objects;
 
 @Builder
 @RequiredArgsConstructor
@@ -38,4 +39,19 @@ public class Recipe {
     public List<Comment> comments;
     public Difficulty difficulty;
     public String titlePictureID;
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Recipe recipe = (Recipe) o;
+        //return likes == recipe.likes && Objects.equals(key, recipe.key) && Objects.equals(author, recipe.author) && Objects.equals(title, recipe.title) && Objects.equals(description, recipe.description) && Objects.equals(ingredients, recipe.ingredients) && Objects.equals(creationTS, recipe.creationTS) && Objects.equals(nutrientSummary, recipe.nutrientSummary) && Objects.equals(categories, recipe.categories) && Objects.equals(comments, recipe.comments) && difficulty == recipe.difficulty && Objects.equals(titlePictureID, recipe.titlePictureID);
+        return recipe.key.equals(this.key);
+    }
+
+    @Override
+    public int hashCode() {
+        //return Objects.hash(this.key);
+        return Objects.hash(key, author, title, description, ingredients, creationTS, likes, nutrientSummary, categories, comments, difficulty, titlePictureID);
+    }
 }

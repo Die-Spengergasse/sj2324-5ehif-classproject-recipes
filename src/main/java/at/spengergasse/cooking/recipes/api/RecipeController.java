@@ -1,6 +1,7 @@
 package at.spengergasse.cooking.recipes.api;
 
 import at.spengergasse.cooking.recipes.domain.Recipe;
+import at.spengergasse.cooking.recipes.domain.utils.key.KeyType;
 import at.spengergasse.cooking.recipes.persistence.RecipeRepository;
 import at.spengergasse.cooking.recipes.service.recipe.RecipeService;
 import at.spengergasse.cooking.recipes.service.recipe.commands.CreateRecipeCommand;
@@ -30,7 +31,7 @@ public class RecipeController {
 
     @GetMapping("/{key}")
     public HttpEntity<Recipe> getRecipeByKey(@PathVariable String key) {
-        Recipe recipe = recipeRepository.findRecipeByKey(key);
+        Recipe recipe = recipeRepository.findRecipeByKey(KeyType.parse(key));
 
         if(recipe == null)
             return ResponseEntity.notFound().build();
@@ -47,7 +48,7 @@ public class RecipeController {
 
     @DeleteMapping("/{key}")
     public HttpEntity<Recipe> deletRecipe(@PathVariable String key) {
-        recipeRepository.deleteRecipeByKey(key);
+        recipeRepository.deleteRecipeByKey(KeyType.parse(key));
 
         return ResponseEntity.ok().build();
 
