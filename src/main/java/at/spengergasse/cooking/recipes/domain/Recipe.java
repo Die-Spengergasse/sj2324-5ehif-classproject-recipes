@@ -15,6 +15,7 @@ import java.util.List;
 @RequiredArgsConstructor
 @Document("recipes")
 @AllArgsConstructor
+@Setter
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class Recipe {
     @Id

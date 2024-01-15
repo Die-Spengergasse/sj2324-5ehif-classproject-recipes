@@ -31,7 +31,7 @@ public record Key(String prefix, String value, String checkDigits) { // TODO: Po
     /**
      * @return true if the {@link Key} is valid.
      */
-    private boolean isValid(KeyType expected) {
+    public boolean isValid(KeyType expected) {
         return this.prefix.equals(expected.getPrefix()) &&
                 this.value.length() == expected.getLength() &&
                 KeyType.MOD_37_2.verify(this.toString());
