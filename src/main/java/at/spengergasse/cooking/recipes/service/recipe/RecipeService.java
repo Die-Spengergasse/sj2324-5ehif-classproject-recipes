@@ -13,6 +13,7 @@ import org.springframework.stereotype.Service;
 
 import java.time.ZonedDateTime;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 @AllArgsConstructor
@@ -22,7 +23,12 @@ public class RecipeService {
     private final RecipeRepository recipeRepository;
 
     public Optional<Recipe> getRecipe(String key) {
-        return KeyType.parse(key).isValid(KeyType.RECIPE) ? Optional.ofNullable(recipeRepository.findRecipeByKey(key)) : Optional.empty();
+        KeyType.parse(key).ensureValid(KeyType.RECIPE);
+        return Optional.ofNullable(recipeRepository.findRecipeByKey(key));
+    }
+
+    public List<Recipe> getAllRecipes(){
+        return recipeRepository.findAll();
     }
 
     public Recipe createRecipe(CreateRecipeCommand cmd){
@@ -50,7 +56,10 @@ public class RecipeService {
         }
     }
 
-    public void deleteRecipe(String key){if(KeyType.parse(key).isValid(KeyType.RECIPE)) recipeRepository.deleteRecipeByKey(key);}
+    public void deleteRecipe(String key){
+        KeyType.parse(key).ensureValid(KeyType.RECIPE);
+        recipeRepository.deleteRecipeByKey(key);
+    }
 
     public void updateRecipe(String key, ReplaceRecipeCommand cmd){
         final UserDto user = this.userService.getUser(KeyType.parse(cmd.authorKey()).ensureValid(KeyType.USER)).block();

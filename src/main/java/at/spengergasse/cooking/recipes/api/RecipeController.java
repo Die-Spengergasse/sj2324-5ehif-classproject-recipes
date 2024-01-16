@@ -20,13 +20,11 @@ import java.util.Optional;
 public class RecipeController {
 
     @Autowired
-    private RecipeRepository recipeRepository;
-    @Autowired
     private RecipeService recipeService;
 
     @GetMapping("/")
     public HttpEntity<List<Recipe>> getAllRecipes() {
-        List<Recipe> allRecipes = recipeRepository.findRecipes();
+        List<Recipe> allRecipes = recipeService.getAllRecipes();
 
         return ResponseEntity.ok().body(allRecipes);
     }
