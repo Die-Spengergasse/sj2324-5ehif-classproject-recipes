@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
+@CrossOrigin(origins = "http://localhost:5173") // Adjust the origin to match your Vue.js frontend
 @RequestMapping("/api/recipes")
 public class RecipeController {
 
