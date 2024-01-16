@@ -1,6 +1,8 @@
 package at.spengergasse.cooking.recipes.api;
 
 import at.spengergasse.cooking.recipes.domain.Recipe;
+import at.spengergasse.cooking.recipes.domain.utils.key.Key;
+import at.spengergasse.cooking.recipes.domain.utils.key.KeyType;
 import at.spengergasse.cooking.recipes.persistence.RecipeRepository;
 import at.spengergasse.cooking.recipes.service.recipe.RecipeService;
 import at.spengergasse.cooking.recipes.service.recipe.commands.CreateRecipeCommand;
@@ -11,6 +13,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @CrossOrigin(origins = "http://localhost:5173") // Adjust the origin to match your Vue.js frontend
@@ -31,12 +34,9 @@ public class RecipeController {
 
     @GetMapping("/{key}")
     public HttpEntity<Recipe> getRecipeByKey(@PathVariable String key) {
-        Recipe recipe = recipeRepository.findRecipeByKey(key);
+        final Optional<Recipe> recipe = recipeRepository.findById(KeyType.parse(key).ensureValid(KeyType.RECIPE));
 
-        if(recipe == null)
-            return ResponseEntity.notFound().build();
-
-        return ResponseEntity.ok().body(recipe);
+        return recipe.map(value -> ResponseEntity.ok().body(value)).orElseGet(() -> ResponseEntity.notFound().build());
     }
 
     @PostMapping("/")
@@ -48,7 +48,9 @@ public class RecipeController {
 
     @DeleteMapping("/{key}")
     public HttpEntity<Recipe> deletRecipe(@PathVariable String key) {
-        recipeRepository.deleteRecipeByKey(key);
+        final Key parsed = KeyType.parse(key).ensureValid(KeyType.RECIPE);
+
+        recipeRepository.deleteById(parsed);
 
         return ResponseEntity.ok().build();
 
