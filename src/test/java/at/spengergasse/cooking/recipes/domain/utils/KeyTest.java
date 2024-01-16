@@ -19,7 +19,7 @@ public class KeyTest {
     @Test
     public void generateKeys(){
         for(int i=0; i<10; i++){
-            Key key = KeyType.RECIPE.randomKey();
+            Key key = KeyType.USER.randomKey();
             System.out.println(key);
         }
     }
