@@ -49,7 +49,6 @@ public enum KeyType {
         for(int i = 0; i < length ; i++) {
             builder.append(KeyType.CHARACTERS.charAt(KeyType.RANDOM.nextInt(KeyType.CHARACTERS.length())));
         }
-
         return builder.toString();
     }
 
