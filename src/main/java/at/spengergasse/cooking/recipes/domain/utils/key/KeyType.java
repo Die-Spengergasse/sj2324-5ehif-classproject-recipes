@@ -14,7 +14,7 @@ public enum KeyType {
     RECIPE("REC", 10);
 
     private static final Random RANDOM = new Random();
-    private static final String CHARACTERS = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
+    protected static final String CHARACTERS = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
     protected static final Mod37_2 MOD_37_2 = new Mod37_2();
 
     private final String prefix;
