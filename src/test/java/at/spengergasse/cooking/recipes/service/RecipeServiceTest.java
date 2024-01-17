@@ -1,14 +1,11 @@
 package at.spengergasse.cooking.recipes.service;
 
-import at.spengergasse.cooking.recipes.domain.CachedUser;
 import at.spengergasse.cooking.recipes.domain.Difficulty;
-import at.spengergasse.cooking.recipes.domain.Recipe;
 import at.spengergasse.cooking.recipes.domain.utils.key.KeyType;
 import at.spengergasse.cooking.recipes.persistence.RecipeRepository;
 import at.spengergasse.cooking.recipes.service.recipe.RecipeService;
 import at.spengergasse.cooking.recipes.service.recipe.commands.CreateRecipeCommand;
-import at.spengergasse.cooking.recipes.service.user.UserDto;
-import at.spengergasse.cooking.recipes.service.user.UserService;
+import at.spengergasse.cooking.recipes.service.user.UserClient;
 import org.junit.jupiter.api.Test;  
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -16,7 +13,6 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import reactor.core.publisher.Mono;
 
-import java.time.ZonedDateTime;
 import java.util.ArrayList;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -27,7 +23,7 @@ import static org.mockito.Mockito.*;
 class RecipeServiceTest {
 
     @Mock
-    private UserService userService;
+    private UserClient userService;
 
     @Mock
     private RecipeRepository recipeRepository;
@@ -49,7 +45,7 @@ class RecipeServiceTest {
                 unknownAuthorKey
         );
 
-        when(userService.getUser(any())).thenReturn(Mono.empty());
+        when(userService.getUser(any())).thenThrow(Exception.class); // todo make better plz <3
 
         // Act & Assert
         assertThrows(IllegalArgumentException.class, () -> recipeService.createRecipe(createRecipeCommand));
