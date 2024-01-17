@@ -6,6 +6,7 @@ import com.github.tomakehurst.wiremock.client.WireMock;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class MockUserData {
@@ -25,7 +26,17 @@ public class MockUserData {
                 "mockPassword",
                 new ArrayList<>()
         );
+        UserDto mockUser1 = new UserDto(
+                "AAAAAAA",
+                "Adrian123",
+                "Mayer",
+                "Adrian",
+                "adrian123@gmail.com",
+                "mockPassword",
+                new ArrayList<>()
+        );
         userList.add(mockUser);
+        userList.add(mockUser1);
         String jsonBody = convertListToJson(userList);
 
         WireMock.configureFor("localhost", WIREMOCK_PORT);
@@ -35,6 +46,16 @@ public class MockUserData {
                         .withStatus(200)
                         .withHeader("Content-Type", "application/json")
                         .withBody(jsonBody)));
+
+        for (UserDto user : userList) {
+            String key = user.key();
+            WireMock.stubFor(WireMock.get(WireMock.urlEqualTo("/users/" + key))
+                    .willReturn(WireMock.aResponse()
+                            .withStatus(200)
+                            .withHeader("Content-Type", "application/json")
+                            .withBody(convertListToJson(Collections.singletonList(user)))));
+        }
+
         return userList;
     }
 
