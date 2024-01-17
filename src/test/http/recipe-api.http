@@ -2,14 +2,6 @@ GET http://{{host}}:{{port}}/api/recipes/
 
 ###
 
-GET http://{{host}}:8089/users
-
-###
-
-GET http://{{host}}:8089/users/ABCDE
-
-###
-
 GET http://{{host}}:{{port}}/api/recipes/{{key}}
 
 ###
