@@ -2,6 +2,14 @@ GET http://{{host}}:{{port}}/api/recipes/
 
 ###
 
+GET http://{{host}}:8089/api/users
+
+###
+
+GET http://{{host}}:8089/api/users/ABCDE
+
+###
+
 POST http://{{host}}:{{port}}/api/recipes/
 Content-Type:application/json
 

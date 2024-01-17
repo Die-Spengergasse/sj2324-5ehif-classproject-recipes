@@ -90,7 +90,14 @@
 			<optional>true</optional>
 			<version>1.18.30</version>
 		</dependency>
-    </dependencies>
+		<dependency>
+			<groupId>com.github.tomakehurst</groupId>
+			<artifactId>wiremock</artifactId>
+			<version>3.0.1</version>
+			<scope>test</scope>
+		</dependency>
+
+	</dependencies>
 
 	<build>
 		<plugins>
