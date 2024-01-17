@@ -13,7 +13,7 @@ import reactor.core.publisher.Mono;
 
 import java.time.Duration;
 
-@FeignClient("users")
+@FeignClient(value = "users", url = "${recipe.user.endpoint}")
 public interface UserClient {
     @RequestMapping(method = RequestMethod.GET, value = "/users/{id}")
     public UserDto getUser(@PathVariable("id") Key id);
