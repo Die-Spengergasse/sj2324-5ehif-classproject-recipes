@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 import java.util.Optional;
@@ -39,9 +40,18 @@ public class RecipeController {
         return recipe.map(value -> ResponseEntity.ok().body(value)).orElseGet(() -> ResponseEntity.notFound().build());
     }
 
+    @PostMapping("/withImage")
+    public HttpEntity<Recipe> createRecipeWithImage(@RequestPart("image") MultipartFile image,
+                                                    @RequestPart("recipe") @Valid CreateRecipeCommand cmd) {
+
+        Recipe recipe = recipeService.createRecipe(cmd, image);
+
+        return ResponseEntity.ok().body(recipe);
+    }
+
     @PostMapping("/")
     public HttpEntity<Recipe> createRecipe(@RequestBody @Valid CreateRecipeCommand cmd) {
-        Recipe recipe = recipeService.createRecipe(cmd);
+        Recipe recipe = recipeService.createRecipe(cmd, null);
 
         return ResponseEntity.ok().body(recipe);
     }
