@@ -1,14 +1,14 @@
-GET http://{{host}}:{{port}}/api/recipes/
+GET http://{{host}}:{{port}}/api/recipes
 
 ###
 
-POST http://{{host}}:{{port}}/api/recipes/
+POST http://{{host}}:{{port}}/api/recipes
 Content-Type:application/json
 
 {
-  "authorKey": "",
+  "authorKey": "USREh4PpDmtxvC",
   "description": "A test recipe",
-  "title": "ABC",
+  "title": "Lasagna",
   "categories": [
     {
       "name": "Test",

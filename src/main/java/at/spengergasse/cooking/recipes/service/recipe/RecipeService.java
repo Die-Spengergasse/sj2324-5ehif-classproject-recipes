@@ -11,6 +11,7 @@ import at.spengergasse.cooking.recipes.service.user.PreferenceDto;
 import at.spengergasse.cooking.recipes.service.user.UserDto;
 import at.spengergasse.cooking.recipes.service.user.UserClient;
 import lombok.AllArgsConstructor;
+import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -61,8 +62,9 @@ public class RecipeService {
         }
     }
 
+
     public List<Recipe> findRecipes() {
-        return this.recipeRepository.findRecipes();
+        return this.recipeRepository.findAllBy(new Query());
     }
 
     public Optional<Recipe> findById(Key id) {
@@ -71,5 +73,9 @@ public class RecipeService {
 
     public void deleteById(Key id) {
         this.recipeRepository.deleteById(id);
+    }
+
+    public List<Recipe> findWithQuery(Query query){
+        return recipeRepository.findAllBy(query);
     }
 }
