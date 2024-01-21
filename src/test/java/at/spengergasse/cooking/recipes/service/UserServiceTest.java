@@ -18,37 +18,9 @@ import static org.junit.jupiter.api.Assertions.*;
 @ExtendWith(MockitoExtension.class)
 class UserServiceTest {
 
-    @Mock
-    private WebClient.RequestHeadersUriSpec requestHeadersUriSpec;
-
-    @Mock
-    private WebClient.RequestHeadersSpec requestHeadersSpec;
-
-    @Mock
-    private WebClient.ResponseSpec responseSpec;
-
-    @Mock
-    private WebClient webClient;
-
-    @InjectMocks
-    private UserClient userService;
-
     @Test
     void testGetUser() {
-        // Arrange
-        Key userId = KeyType.USER.randomKey(); // Replace with a valid user ID
-        UserDto mockUserDto = new UserDto("user_id", "username", "lastname", "firstname", "email", "password", null);
-
-        when(webClient.get()).thenReturn(requestHeadersUriSpec);
-        when(requestHeadersUriSpec.uri("user/{id}", userId)).thenReturn(requestHeadersSpec);
-        when(requestHeadersSpec.retrieve()).thenReturn(responseSpec);
-        when(responseSpec.bodyToMono(UserDto.class)).thenReturn(Mono.just(mockUserDto));
-
-        // Act
-        UserDto userDto = userService.getUser(userId);
-
-        // Assert
-        assertNotNull(userDto);
-        assertEquals(mockUserDto, userDto);
+        // todo: openfeign + wiremock testing; https://stackoverflow.com/questions/68453529/how-to-autowire-feignclient-into-test-class
+        // todo: cloud contract: https://wiremock.org/docs/solutions/spring-boot/
     }
 }

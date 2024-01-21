@@ -45,7 +45,7 @@ class RecipeServiceTest {
                 unknownAuthorKey
         );
 
-        when(userService.getUser(any())).thenThrow(Exception.class); // todo make better plz <3
+        when(userService.getUser(any())).thenReturn(null);
 
         // Act & Assert
         assertThrows(IllegalArgumentException.class, () -> recipeService.createRecipe(createRecipeCommand, null));
