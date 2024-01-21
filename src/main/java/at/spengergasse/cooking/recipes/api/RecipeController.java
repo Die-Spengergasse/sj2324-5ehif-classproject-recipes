@@ -21,27 +21,25 @@ import java.util.Optional;
 public class RecipeController {
 
     @Autowired
-    private RecipeRepository recipeRepository;
-    @Autowired
     private RecipeService recipeService;
 
-    @GetMapping("/")
+    @GetMapping
     public HttpEntity<List<Recipe>> getAllRecipes() {
-        List<Recipe> allRecipes = recipeRepository.findRecipes();
+        List<Recipe> allRecipes = this.recipeService.findRecipes();
 
         return ResponseEntity.ok().body(allRecipes);
     }
 
     @GetMapping("/{key}")
     public HttpEntity<Recipe> getRecipeByKey(@PathVariable String key) {
-        final Optional<Recipe> recipe = recipeRepository.findById(KeyType.parse(key).ensureValid(KeyType.RECIPE));
+        final Optional<Recipe> recipe = this.recipeService.findById(KeyType.parse(key).ensureValid(KeyType.RECIPE));
 
         return recipe.map(value -> ResponseEntity.ok().body(value)).orElseGet(() -> ResponseEntity.notFound().build());
     }
 
-    @PostMapping("/")
+    @PostMapping
     public HttpEntity<Recipe> createRecipe(@RequestBody @Valid CreateRecipeCommand cmd) {
-        Recipe recipe = recipeService.createRecipe(cmd);
+        Recipe recipe = this.recipeService.createRecipe(cmd);
 
         return ResponseEntity.ok().body(recipe);
     }
@@ -50,10 +48,11 @@ public class RecipeController {
     public HttpEntity<Recipe> deletRecipe(@PathVariable String key) {
         final Key parsed = KeyType.parse(key).ensureValid(KeyType.RECIPE);
 
-        recipeRepository.deleteById(parsed);
+        this.recipeService.deleteById(parsed);
 
         return ResponseEntity.ok().build();
 
     }
 
+    // TODO: Exception handler
 }
