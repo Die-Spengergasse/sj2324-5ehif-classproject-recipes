@@ -6,6 +6,7 @@ import at.spengergasse.cooking.recipes.domain.utils.key.KeyType;
 import at.spengergasse.cooking.recipes.persistence.RecipeRepository;
 import at.spengergasse.cooking.recipes.service.recipe.RecipeService;
 import at.spengergasse.cooking.recipes.service.recipe.commands.CreateRecipeCommand;
+import at.spengergasse.cooking.recipes.service.recipe.commands.UpdateLikesCommand;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpEntity;
@@ -17,7 +18,7 @@ import java.util.List;
 import java.util.Optional;
 
 @RestController
-@CrossOrigin(origins = "http://localhost:5173") // Adjust the origin to match your Vue.js frontend
+@CrossOrigin(origins = "http://localhost:8080") // Adjust the origin to match your Vue.js frontend
 @RequestMapping("/api/recipes")
 public class RecipeController {
 
@@ -40,18 +41,31 @@ public class RecipeController {
 
     @PostMapping("/withImage")
     public HttpEntity<Recipe> createRecipeWithImage(@RequestPart("image") MultipartFile image,
-                                                    @RequestPart("recipe") @Valid CreateRecipeCommand cmd) {
+                                                    @RequestPart("recipe") @Valid CreateRecipeCommand createRecipeCommand) {
 
-        Recipe recipe = recipeService.createRecipe(cmd, image);
+        Recipe recipe = recipeService.createRecipe(createRecipeCommand, image);
 
         return ResponseEntity.ok().body(recipe);
     }
 
     @PostMapping
-    public HttpEntity<Recipe> createRecipe(@RequestBody @Valid CreateRecipeCommand cmd) {
-        Recipe recipe = recipeService.createRecipe(cmd, null);
+    public HttpEntity<Recipe> createRecipe(@RequestBody @Valid CreateRecipeCommand createRecipeCommand) {
+        Recipe recipe = recipeService.createRecipe(createRecipeCommand, null);
 
         return ResponseEntity.ok().body(recipe);
+    }
+
+    @PutMapping("/{key}")
+    public HttpEntity<Recipe> updateRecipe(@PathVariable String key, @RequestBody @Valid UpdateLikesCommand updateLikesCommand) {
+        final Optional<Recipe> existingRecipe = this.recipeService.findById(KeyType.parse(key).ensureValid(KeyType.RECIPE));
+
+        if (existingRecipe.isEmpty()) {
+            return ResponseEntity.notFound().build();
+        }
+
+        Recipe updatedRecipe = recipeService.updateLikes(existingRecipe.get(), updateLikesCommand);
+
+        return ResponseEntity.ok().body(updatedRecipe);
     }
 
     @DeleteMapping("/{key}")

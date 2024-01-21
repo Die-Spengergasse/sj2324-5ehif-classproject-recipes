@@ -1,12 +1,12 @@
-GET http://{{host}}:{{port}}/api/recipes/
+GET http://{{host}}:{{port}}/api/recipes
 
 ###
 
-POST http://{{host}}:{{port}}/api/recipes/
+POST http://{{host}}:{{port}}/api/recipes
 Content-Type:application/json
 
 {
-  "authorKey": "",
+  "authorKey": "USRTp90VKuD6gP",
   "description": "A test recipe",
   "title": "ABC",
   "categories": [
@@ -34,4 +34,14 @@ Content-Type:application/json
     "fat": 5
   },
   "titlePictureID": "picture123"
+}
+
+
+###
+
+PUT http://{{host}}:{{port}}/api/recipes/RECKQaEmnYFX1M
+Content-Type:application/json
+
+{
+  "likes": 10
 }

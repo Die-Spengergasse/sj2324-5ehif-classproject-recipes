@@ -11,7 +11,7 @@ import org.springframework.data.mongodb.core.mapping.Document;
 import java.time.ZonedDateTime;
 import java.util.List;
 
-@Builder
+@Builder(toBuilder = true)
 @RequiredArgsConstructor
 @Document("recipes")
 @AllArgsConstructor

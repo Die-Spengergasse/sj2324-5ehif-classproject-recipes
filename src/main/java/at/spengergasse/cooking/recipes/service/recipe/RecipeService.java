@@ -7,6 +7,7 @@ import at.spengergasse.cooking.recipes.domain.utils.key.KeyType;
 import at.spengergasse.cooking.recipes.persistence.RecipeRepository;
 import at.spengergasse.cooking.recipes.service.image.ImageService;
 import at.spengergasse.cooking.recipes.service.recipe.commands.CreateRecipeCommand;
+import at.spengergasse.cooking.recipes.service.recipe.commands.UpdateLikesCommand;
 import at.spengergasse.cooking.recipes.service.user.PreferenceDto;
 import at.spengergasse.cooking.recipes.service.user.UserDto;
 import at.spengergasse.cooking.recipes.service.user.UserClient;
@@ -59,6 +60,14 @@ public class RecipeService {
         } else {
             throw new IllegalArgumentException("Unknown user key.");
         }
+    }
+
+    public Recipe updateLikes(Recipe existingRecipe, UpdateLikesCommand updateLikesCommand) {
+        Recipe updatedRecipe = existingRecipe.toBuilder()
+                .likes(updateLikesCommand.likes())
+                .build();
+
+        return recipeRepository.save(updatedRecipe);
     }
 
     public List<Recipe> findRecipes() {
