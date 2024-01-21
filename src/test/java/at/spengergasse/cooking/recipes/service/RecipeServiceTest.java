@@ -48,7 +48,7 @@ class RecipeServiceTest {
         when(userService.getUser(any())).thenThrow(Exception.class); // todo make better plz <3
 
         // Act & Assert
-        assertThrows(IllegalArgumentException.class, () -> recipeService.createRecipe(createRecipeCommand));
+        assertThrows(IllegalArgumentException.class, () -> recipeService.createRecipe(createRecipeCommand, null));
 
         // Verify that userService.getUser was called
         verify(userService, times(1)).getUser(any());
