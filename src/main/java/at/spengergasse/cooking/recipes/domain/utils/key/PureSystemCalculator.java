@@ -1,4 +1,4 @@
-package at.spengergasse.cooking.recipes.domain.utils;
+package at.spengergasse.cooking.recipes.domain.utils.key;
 
 /**
  * @see https://github.com/danieltwagner/iso7064/blob/master/src/main/java/com/github/danieltwagner/iso7064/PureSystemCalculator.java

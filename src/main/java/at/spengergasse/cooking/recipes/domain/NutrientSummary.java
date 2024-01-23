@@ -2,17 +2,21 @@ package at.spengergasse.cooking.recipes.domain;
 
 import jakarta.validation.constraints.Min;
 import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.Setter;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 @Document
 @AllArgsConstructor
+@Getter
+@Setter
 public class NutrientSummary {
     @Min(0)
-    public int kcal;
+    private int kcal;
     @Min(0)
-    public double carbs;
+    private double carbs;
     @Min(0)
-    public double fats;
+    private double fats;
     @Min(0)
-    public double protein;
+    private double protein;
 }
