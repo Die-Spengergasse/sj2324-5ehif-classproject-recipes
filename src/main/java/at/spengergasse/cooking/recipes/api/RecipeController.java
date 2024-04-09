@@ -12,11 +12,13 @@ import lombok.extern.log4j.Log4j2;
 import org.hibernate.service.spi.ServiceException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.sql.rowset.serial.SerialException;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
@@ -84,10 +86,19 @@ public class RecipeController {
 
     }
 
-    // TODO: Exception handler
     @ExceptionHandler(SerialException.class)
-    public HttpEntity<?> handleServiceException(ServiceException srvEx){
-        log.warn("An exception has occured: ", srvEx);
+    public ResponseEntity<?> handleSerialException(SerialException ex) {
+        log.warn("A SerialException has occurred: ", ex);
         return ResponseEntity.notFound().build();
+    }
+    @ExceptionHandler(IllegalArgumentException.class)
+    public ResponseEntity<String> handleIllegalArgumentException(IllegalArgumentException ex) {
+        log.warn("An Illegal Argument exception has occurred: ", ex);
+        return ResponseEntity.badRequest().body("Invalid Argument: " + ex.getMessage());
+    }
+    @ExceptionHandler(Exception.class)
+    public ResponseEntity<String> handleGeneralException(Exception ex) {
+        log.warn("An Exception has occurred: ", ex);
+        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("An error occurred: " + ex.getMessage());
     }
 }
