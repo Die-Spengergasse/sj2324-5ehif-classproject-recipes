@@ -1,5 +1,6 @@
 package at.spengergasse.cooking.recipes.service.recipe;
 
+import at.spengergasse.cooking.recipes.api.RecipeDTO;
 import at.spengergasse.cooking.recipes.domain.Recipe;
 import at.spengergasse.cooking.recipes.domain.CachedUser;
 import at.spengergasse.cooking.recipes.domain.utils.key.Key;
@@ -19,6 +20,7 @@ import java.time.ZonedDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @AllArgsConstructor
 @Service
@@ -27,8 +29,6 @@ public class RecipeService {
     private final RecipeRepository recipeRepository;
 
     // TODO: Proper recipe dto!
-
-    private final ImageService imageService;
 
     public Recipe createRecipe(CreateRecipeCommand cmd, MultipartFile image){
         final UserDto user = this.userService.getUser(KeyType.parse(cmd.authorKey()).ensureValid(KeyType.USER));
@@ -62,6 +62,8 @@ public class RecipeService {
         }
     }
 
+    private final ImageService imageService;
+
     public Recipe updateLikes(Recipe existingRecipe, UpdateLikesCommand updateLikesCommand) {
         Recipe updatedRecipe = existingRecipe.toBuilder()
                 .likes(updateLikesCommand.likes())
@@ -71,7 +73,13 @@ public class RecipeService {
     }
 
     public List<Recipe> findRecipes() {
-        return this.recipeRepository.findRecipes();
+
+        List<Recipe> allRecipes = this.recipeRepository.findRecipes();
+
+        List<RecipeDTO> RecipesDTOS = allRecipes.stream().map(s -> new RecipeDTO(s.getBuilding(), s.getFloor(), s.getRoomNumber()))
+                .collect(Collectors.toList());
+
+        return RecipesDTOS;
     }
 
     public Optional<Recipe> findById(Key id) {

@@ -18,7 +18,7 @@ import java.util.List;
 import java.util.Optional;
 
 @RestController
-@CrossOrigin(origins = "http://localhost:8080") // Adjust the origin to match your Vue.js frontend
+@CrossOrigin(origins = "http://localhost:8081") // Adjust the origin to match your Vue.js frontend
 @RequestMapping("/api/recipes")
 public class RecipeController {
 
@@ -28,7 +28,6 @@ public class RecipeController {
     @GetMapping
     public HttpEntity<List<Recipe>> getAllRecipes() {
         List<Recipe> allRecipes = this.recipeService.findRecipes();
-
         return ResponseEntity.ok().body(allRecipes);
     }
 

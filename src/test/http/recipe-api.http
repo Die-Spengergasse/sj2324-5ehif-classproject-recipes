@@ -36,8 +36,8 @@ Content-Type:application/json
   "titlePictureID": "picture123"
 }
 
-
 ###
+
 
 PUT http://{{host}}:{{port}}/api/recipes/RECKQaEmnYFX1M
 Content-Type:application/json
