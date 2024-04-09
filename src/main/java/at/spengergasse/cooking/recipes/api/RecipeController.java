@@ -24,12 +24,14 @@ public class RecipeController {
 
     @Autowired
     private RecipeService recipeService;
-
+/*
     @GetMapping
     public HttpEntity<List<Recipe>> getAllRecipes() {
         List<Recipe> allRecipes = this.recipeService.findRecipes();
         return ResponseEntity.ok().body(allRecipes);
     }
+    */
+
 
     @GetMapping("/{key}")
     public HttpEntity<Recipe> getRecipeByKey(@PathVariable String key) {
