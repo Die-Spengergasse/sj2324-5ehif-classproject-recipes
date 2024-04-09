@@ -16,26 +16,28 @@ import java.util.List;
 @Document("recipes")
 @AllArgsConstructor
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
+@Getter
+@Setter
 public class Recipe {
     @Id
     @NonNull
-    public Key key;
+    private Key key;
     @NonNull
-    public CachedUser author;
+    private CachedUser author;
     @NonNull
     @NotBlank(message = "Title must not be blank")
-    public String title;
+    private String title;
     @NonNull
     @NotBlank(message = "Description must not be blank")
-    public String description;
+    private String description;
     @Size(min = 1)
-    public List<Ingredient> ingredients;
-    public ZonedDateTime creationTS;
+    private List<Ingredient> ingredients;
+    private ZonedDateTime creationTS;
     @Min(0)
-    public int likes;
-    public NutrientSummary nutrientSummary;
-    public List<Category> categories;
-    public List<Comment> comments;
-    public Difficulty difficulty;
-    public String titlePictureID;
+    private int likes;
+    private NutrientSummary nutrientSummary;
+    private List<Category> categories;
+    private List<Comment> comments;
+    private Difficulty difficulty;
+    private String titlePictureID;
 }
