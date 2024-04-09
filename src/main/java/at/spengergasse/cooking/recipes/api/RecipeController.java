@@ -8,30 +8,32 @@ import at.spengergasse.cooking.recipes.service.recipe.RecipeService;
 import at.spengergasse.cooking.recipes.service.recipe.commands.CreateRecipeCommand;
 import at.spengergasse.cooking.recipes.service.recipe.commands.UpdateLikesCommand;
 import jakarta.validation.Valid;
+import lombok.extern.log4j.Log4j2;
+import org.hibernate.service.spi.ServiceException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.sql.rowset.serial.SerialException;
 import java.util.List;
 import java.util.Optional;
 
 @RestController
+@Log4j2
 @CrossOrigin(origins = "http://localhost:8081") // Adjust the origin to match your Vue.js frontend
 @RequestMapping("/api/recipes")
 public class RecipeController {
 
     @Autowired
     private RecipeService recipeService;
-/*
+
     @GetMapping
     public HttpEntity<List<Recipe>> getAllRecipes() {
         List<Recipe> allRecipes = this.recipeService.findRecipes();
         return ResponseEntity.ok().body(allRecipes);
     }
-    */
-
 
     @GetMapping("/{key}")
     public HttpEntity<Recipe> getRecipeByKey(@PathVariable String key) {
@@ -51,6 +53,7 @@ public class RecipeController {
 
     @PostMapping
     public HttpEntity<Recipe> createRecipe(@RequestBody @Valid CreateRecipeCommand createRecipeCommand) {
+        log.info("Created Recipe with Data: "+createRecipeCommand);
         Recipe recipe = recipeService.createRecipe(createRecipeCommand, null);
 
         return ResponseEntity.ok().body(recipe);
@@ -58,6 +61,7 @@ public class RecipeController {
 
     @PutMapping("/{key}")
     public HttpEntity<Recipe> updateRecipe(@PathVariable String key, @RequestBody @Valid UpdateLikesCommand updateLikesCommand) {
+        log.info("Updated Recipe with Key: "+key+"\n With Data: "+ updateLikesCommand);
         final Optional<Recipe> existingRecipe = this.recipeService.findById(KeyType.parse(key).ensureValid(KeyType.RECIPE));
 
         if (existingRecipe.isEmpty()) {
@@ -71,6 +75,7 @@ public class RecipeController {
 
     @DeleteMapping("/{key}")
     public HttpEntity<Recipe> deletRecipe(@PathVariable String key) {
+        log.info("Deleted Recipe with Key: "+key);
         final Key parsed = KeyType.parse(key).ensureValid(KeyType.RECIPE);
 
         this.recipeService.deleteById(parsed);
@@ -80,4 +85,9 @@ public class RecipeController {
     }
 
     // TODO: Exception handler
+    @ExceptionHandler(SerialException.class)
+    public HttpEntity<?> handleServiceException(ServiceException srvEx){
+        log.warn("An exception has occured: ", srvEx);
+        return ResponseEntity.notFound().build();
+    }
 }

@@ -71,7 +71,7 @@ public class RecipeService {
 
         return recipeRepository.save(updatedRecipe);
     }
-/*
+
     public List<Recipe> findRecipes() {
 
         List<Recipe> allRecipes = this.recipeRepository.findRecipes();
@@ -81,7 +81,6 @@ public class RecipeService {
 
         return RecipesDTOS;
     }
-    */
 
     public Optional<Recipe> findById(Key id) {
         return this.recipeRepository.findById(id);
