@@ -85,13 +85,7 @@ public class RecipeService {
     }
 
     public List<Recipe> findRecipes() {
-
-        List<Recipe> allRecipes = this.recipeRepository.findRecipes();
-
-        List<RecipeDTO> RecipesDTOS = allRecipes.stream().map(s -> new RecipeDTO(s.getBuilding(), s.getFloor(), s.getRoomNumber()))
-                .collect(Collectors.toList());
-
-        return RecipesDTOS;
+return this.recipeRepository.findRecipes();
     }
 
     public Optional<Recipe> findById(Key id) {
