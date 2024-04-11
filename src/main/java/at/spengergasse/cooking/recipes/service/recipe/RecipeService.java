@@ -77,10 +77,12 @@ public class RecipeService {
         return recipeRepository.save(updatedRecipe);
     }
 
-    public List<RecipeDTO> findRecipes() {
+    public List<Recipe> findRecipes() {
 
         List<Recipe> allRecipes = this.recipeRepository.findRecipes();
-
+        return allRecipes;
+        //ToDo Implement right DTO
+        /*
         List<RecipeDTO> RecipesDTOS = allRecipes.stream().map(r -> new RecipeDTO(
                 r.getAuthor(),
                 r.getTitle(),
@@ -95,6 +97,7 @@ public class RecipeService {
                 r.getTitlePictureID()))
                 .collect(Collectors.toList());
         return RecipesDTOS;
+        */
     }
 
     public Optional<Recipe> findById(Key id) {

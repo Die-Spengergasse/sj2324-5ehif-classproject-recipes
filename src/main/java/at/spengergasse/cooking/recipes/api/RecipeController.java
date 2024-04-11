@@ -32,8 +32,8 @@ public class RecipeController {
     private RecipeService recipeService;
 
     @GetMapping
-    public HttpEntity<List<RecipeDTO>> getAllRecipes() {
-        List<RecipeDTO> allRecipes = this.recipeService.findRecipes();
+    public HttpEntity<List<Recipe>> getAllRecipes() {
+        List<Recipe> allRecipes = this.recipeService.findRecipes();
         return ResponseEntity.ok().body(allRecipes);
     }
 
