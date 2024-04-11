@@ -72,11 +72,12 @@ public class RecipeService {
         return recipeRepository.save(updatedRecipe);
     }
 
-    public List<Recipe> findRecipes() {
+    public List<RecipeDTO> findRecipes() {
 
         List<Recipe> allRecipes = this.recipeRepository.findRecipes();
 
-        List<RecipeDTO> RecipesDTOS = allRecipes.stream().map(s -> new RecipeDTO(s.getBuilding(), s.getFloor(), s.getRoomNumber()))
+        List<RecipeDTO> RecipesDTOS = allRecipes.stream().map(r -> new RecipeDTO(
+                        r.getTitle()))
                 .collect(Collectors.toList());
 
         return RecipesDTOS;
