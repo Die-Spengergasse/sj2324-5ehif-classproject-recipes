@@ -5,7 +5,9 @@ import com.fasterxml.jackson.annotation.JsonValue;
 public enum FilterOperation {
     EQUAL("eq"),
     NOT_EQUAL("neq"),
-    CONTAINS("con");
+    CONTAINS("con"),
+    GREATER_THAN("gt"),
+    LESS_THAN("lt");
 
     private final String value;
 
