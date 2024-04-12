@@ -87,6 +87,12 @@
 			<scope>test</scope>
 			<version>${testcontainers.version}</version>
 		</dependency>
+		<dependency>
+			<groupId>org.wiremock.integrations.testcontainers</groupId>
+			<artifactId>wiremock-testcontainers-module</artifactId>
+			<version>1.0-alpha-13</version>
+		</dependency>
+
 
 		<dependency>
 			<groupId>org.hibernate.validator</groupId>

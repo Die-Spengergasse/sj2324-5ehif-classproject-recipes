@@ -1,22 +1,34 @@
 package at.spengergasse.cooking.recipes.service;
-
-import at.spengergasse.cooking.recipes.domain.utils.key.Key;
-import at.spengergasse.cooking.recipes.domain.utils.key.KeyType;
-import at.spengergasse.cooking.recipes.service.user.UserDto;
-import at.spengergasse.cooking.recipes.service.user.UserClient;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.InjectMocks;
-import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
-import org.springframework.web.reactive.function.client.WebClient;
-import reactor.core.publisher.Mono;
+import org.wiremock.integrations.testcontainers.WireMockContainer;
+import org.testcontainers.junit.jupiter.*;
 
-import static org.mockito.Mockito.when;
-import static org.junit.jupiter.api.Assertions.*;
-
+import java.net.URI;
+import java.net.http.HttpClient;
+import java.net.http.HttpRequest;
+import java.net.http.HttpResponse;
+@Testcontainers
 @ExtendWith(MockitoExtension.class)
 class UserServiceTest {
+
+    @Container
+    WireMockContainer wiremockServer = new WireMockContainer("wiremock/wiremock")
+            .withMapping("/api/users", UserServiceTest.class, "user.json");
+
+
+    @Test
+    void helloWorld() throws Exception {
+        String url = wiremockServer.getUrl("/api/users");
+        HttpClient client = HttpClient.newHttpClient();
+        HttpRequest request = HttpRequest.newBuilder()
+                .uri(URI.create(url))
+                .GET()
+                .build();
+        HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
+        System.out.println(response.body());
+    }
 
     @Test
     void testGetUser() {
