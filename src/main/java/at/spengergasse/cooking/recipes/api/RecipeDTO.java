@@ -7,8 +7,6 @@ import lombok.RequiredArgsConstructor;
 
 import java.time.ZonedDateTime;
 import java.util.List;
-@Getter
-@RequiredArgsConstructor
 public record RecipeDTO(
         UserDto userDTO,
         String title,
