@@ -61,6 +61,32 @@ public class RecipeController {
         return ResponseEntity.ok().body(recipe);
     }
 
+    @PostMapping("/{key}/like")
+    public HttpEntity<Recipe> like(@PathVariable String key) {
+        final Optional<Recipe> existingRecipe = this.recipeService.findById(KeyType.parse(key).ensureValid(KeyType.RECIPE));
+
+        if (existingRecipe.isEmpty()) {
+            return ResponseEntity.notFound().build();
+        }
+
+        Recipe updatedRecipe = recipeService.likeRecipe(existingRecipe.get());
+
+        return ResponseEntity.ok().body(updatedRecipe);
+    }
+
+    @PostMapping("/{key}/dislike")
+    public HttpEntity<Recipe> dislike(@PathVariable String key) {
+        final Optional<Recipe> existingRecipe = this.recipeService.findById(KeyType.parse(key).ensureValid(KeyType.RECIPE));
+
+        if (existingRecipe.isEmpty()) {
+            return ResponseEntity.notFound().build();
+        }
+
+        Recipe updatedRecipe = recipeService.dislikeRecipe(existingRecipe.get());
+
+        return ResponseEntity.ok().body(updatedRecipe);
+    }
+
     @PutMapping("/{key}")
     public HttpEntity<Recipe> updateRecipe(@PathVariable String key, @RequestBody @Valid UpdateLikesCommand updateLikesCommand) {
         log.info("Updated Recipe with Key: "+key+"\n With Data: "+ updateLikesCommand);

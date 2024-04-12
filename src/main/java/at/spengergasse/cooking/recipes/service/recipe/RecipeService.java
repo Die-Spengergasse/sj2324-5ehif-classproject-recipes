@@ -63,6 +63,18 @@ public class RecipeService {
     }
 
     private final ImageService imageService;
+    
+    public Recipe likeRecipe(Recipe existingRecipe) {
+        // TODO: fix to convention get recipe here.
+
+        return this.recipeRepository.save(existingRecipe.toBuilder().likes(existingRecipe.getLikes() + 1).build());
+    }
+
+    public Recipe dislikeRecipe(Recipe existingRecipe) {
+        // TODO: fix to convention get recipe here.
+
+        return this.recipeRepository.save(existingRecipe.toBuilder().likes(Math.max(existingRecipe.getLikes() - 1, 0)).build());
+    }
 
     public Recipe updateLikes(Recipe existingRecipe, UpdateLikesCommand updateLikesCommand) {
         Recipe updatedRecipe = existingRecipe.toBuilder()
