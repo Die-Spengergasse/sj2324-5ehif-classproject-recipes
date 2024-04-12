@@ -1,6 +1,11 @@
 package at.spengergasse.cooking.recipes.service.recipe;
 
+import at.spengergasse.cooking.recipes.api.CommentDTO;
+import at.spengergasse.cooking.recipes.api.IngredientDTO;
+import at.spengergasse.cooking.recipes.api.NutrientSummaryDTO;
 import at.spengergasse.cooking.recipes.api.RecipeDTO;
+import at.spengergasse.cooking.recipes.domain.Category;
+import at.spengergasse.cooking.recipes.domain.Difficulty;
 import at.spengergasse.cooking.recipes.domain.Recipe;
 import at.spengergasse.cooking.recipes.domain.CachedUser;
 import at.spengergasse.cooking.recipes.domain.utils.key.Key;
@@ -90,13 +95,23 @@ public class RecipeService {
 
         List<Recipe> allRecipes = this.recipeRepository.findRecipes();
         return allRecipes;
-/*
-        List<RecipeDTO> RecipesDTOS = allRecipes.stream().map(s -> new RecipeDTO(s.getBuilding(), s.getFloor(), s.getRoomNumber()))
+        //ToDo Implement right DTO
+        /*
+        List<RecipeDTO> RecipesDTOS = allRecipes.stream().map(r -> new RecipeDTO(
+                r.getAuthor(),
+                r.getTitle(),
+                r.getDescription(),
+                r.getIngredients(),
+                r.getCreationTS(),
+                r.getLikes(),
+                r.getNutrientSummary(),
+                r.getCategories(),
+                r.getComments(),
+                r.getDifficulty(),
+                r.getTitlePictureID()))
                 .collect(Collectors.toList());
-
         return RecipesDTOS;
-
- */
+         */
     }
 
     public Optional<Recipe> findById(Key id) {
