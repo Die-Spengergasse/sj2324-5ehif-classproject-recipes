@@ -22,6 +22,7 @@ import java.time.ZonedDateTime;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Optional;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -54,7 +55,7 @@ class RecipeServiceTest {
                 unknownAuthorKey
         );
 
-        when(userService.getUser(any())).thenReturn(null);
+        when(userService.getUser(any())).thenReturn(Optional.empty());
 
         // Act & Assert
         assertThrows(IllegalArgumentException.class, () -> recipeService.createRecipe(createRecipeCommand, null));

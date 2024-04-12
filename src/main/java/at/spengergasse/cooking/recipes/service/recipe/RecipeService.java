@@ -31,8 +31,11 @@ public class RecipeService {
     // TODO: Proper recipe dto!
 
     public Recipe createRecipe(CreateRecipeCommand cmd, MultipartFile image){
-        final UserDto user = this.userService.getUser(KeyType.parse(cmd.authorKey()).ensureValid(KeyType.USER));
-
+        final Optional<UserDto> optionalUser = this.userService.getUser(KeyType.parse(cmd.authorKey()).ensureValid(KeyType.USER));
+        if (!optionalUser.isPresent()) {
+            throw new IllegalArgumentException("Unknown user key.");
+        }
+        UserDto user = optionalUser.get();
         String imageUrl = "";
 
         if(user != null) {
@@ -83,15 +86,17 @@ public class RecipeService {
 
         return recipeRepository.save(updatedRecipe);
     }
-
     public List<Recipe> findRecipes() {
 
         List<Recipe> allRecipes = this.recipeRepository.findRecipes();
-
+        return allRecipes;
+/*
         List<RecipeDTO> RecipesDTOS = allRecipes.stream().map(s -> new RecipeDTO(s.getBuilding(), s.getFloor(), s.getRoomNumber()))
                 .collect(Collectors.toList());
 
         return RecipesDTOS;
+
+ */
     }
 
     public Optional<Recipe> findById(Key id) {

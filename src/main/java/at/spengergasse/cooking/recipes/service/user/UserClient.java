@@ -12,9 +12,10 @@ import org.springframework.web.reactive.function.client.WebClient;
 import reactor.core.publisher.Mono;
 
 import java.time.Duration;
+import java.util.Optional;
 
 @FeignClient(value = "users", url = "${recipe.user.endpoint}")
 public interface UserClient {
     @RequestMapping(method = RequestMethod.GET, value = "/users/{id}")
-    public UserDto getUser(@PathVariable("id") Key id);
+    public Optional<UserDto> getUser(@PathVariable("id") Key id);
 }
