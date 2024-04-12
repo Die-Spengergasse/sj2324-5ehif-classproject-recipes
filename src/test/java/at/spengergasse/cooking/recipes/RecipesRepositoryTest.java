@@ -1,6 +1,7 @@
 package at.spengergasse.cooking.recipes;
 
 import at.spengergasse.cooking.recipes.domain.*;
+import at.spengergasse.cooking.recipes.domain.utils.key.Key;
 import at.spengergasse.cooking.recipes.domain.utils.key.KeyType;
 import at.spengergasse.cooking.recipes.persistence.RecipeRepository;
 import org.junit.jupiter.api.BeforeEach;
@@ -34,7 +35,7 @@ public class RecipesRepositoryTest {
     @Test
     void writeReadTest(){
         Recipe recipe = Recipe.builder()
-                .author(new CachedUser(KeyType.USER.randomKey(), "Thomas"))
+                .author(new CachedUser(new Key("USR","Eh4PpDmtxv","C"), "Billy Bob"))
                 .description("A test recipe")
                 .categories(Arrays.asList(new Category("Test", null)))
                 .likes(5)

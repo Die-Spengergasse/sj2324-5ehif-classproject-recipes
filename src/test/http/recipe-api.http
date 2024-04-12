@@ -6,7 +6,8 @@ POST http://{{host}}:{{port}}/api/recipes
 Content-Type:application/json
 
 {
-  "authorKey": "USREh4PpDmtxvC",
+
+  "authorKey": "USRTp90VKuD6gP",
   "description": "A test recipe",
   "title": "Lasagna",
   "categories": [
@@ -34,4 +35,14 @@ Content-Type:application/json
     "fat": 5
   },
   "titlePictureID": "picture123"
+}
+
+###
+
+
+PUT http://{{host}}:{{port}}/api/recipes/RECKQaEmnYFX1M
+Content-Type:application/json
+
+{
+  "likes": 10
 }
