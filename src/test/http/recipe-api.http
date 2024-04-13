@@ -6,9 +6,10 @@ POST http://{{host}}:{{port}}/api/recipes
 Content-Type:application/json
 
 {
+
   "authorKey": "USRTp90VKuD6gP",
   "description": "A test recipe",
-  "title": "ABC",
+  "title": "Lasagna",
   "categories": [
     {
       "name": "Test",

@@ -13,6 +13,7 @@ import at.spengergasse.cooking.recipes.service.user.PreferenceDto;
 import at.spengergasse.cooking.recipes.service.user.UserDto;
 import at.spengergasse.cooking.recipes.service.user.UserClient;
 import lombok.AllArgsConstructor;
+import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -62,7 +63,9 @@ public class RecipeService {
         }
     }
 
+
     private final ImageService imageService;
+    /*
     
     public Recipe likeRecipe(Recipe existingRecipe) {
         // TODO: fix to convention get recipe here.
@@ -86,13 +89,13 @@ public class RecipeService {
 
     public List<Recipe> findRecipes() {
 
-        List<Recipe> allRecipes = this.recipeRepository.findRecipes();
+        List<Recipe> allRecipes = this.recipeRepository.findAllBy(new Query());
 
         List<RecipeDTO> RecipesDTOS = allRecipes.stream().map(s -> new RecipeDTO(s.getBuilding(), s.getFloor(), s.getRoomNumber()))
                 .collect(Collectors.toList());
 
         return RecipesDTOS;
-    }
+    }*/
 
     public Optional<Recipe> findById(Key id) {
         return this.recipeRepository.findById(id);
@@ -100,5 +103,9 @@ public class RecipeService {
 
     public void deleteById(Key id) {
         this.recipeRepository.deleteById(id);
+    }
+
+    public List<Recipe> findWithQuery(Query query){
+        return recipeRepository.findAllBy(query);
     }
 }
