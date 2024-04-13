@@ -1,6 +1,5 @@
 package at.spengergasse.cooking.recipes.service.recipe;
 
-import at.spengergasse.cooking.recipes.api.RecipeDTO;
 import at.spengergasse.cooking.recipes.domain.Recipe;
 import at.spengergasse.cooking.recipes.domain.CachedUser;
 import at.spengergasse.cooking.recipes.domain.utils.key.Key;
@@ -8,8 +7,6 @@ import at.spengergasse.cooking.recipes.domain.utils.key.KeyType;
 import at.spengergasse.cooking.recipes.persistence.RecipeRepository;
 import at.spengergasse.cooking.recipes.service.image.ImageService;
 import at.spengergasse.cooking.recipes.service.recipe.commands.CreateRecipeCommand;
-import at.spengergasse.cooking.recipes.service.recipe.commands.UpdateLikesCommand;
-import at.spengergasse.cooking.recipes.service.user.PreferenceDto;
 import at.spengergasse.cooking.recipes.service.user.UserDto;
 import at.spengergasse.cooking.recipes.service.user.UserClient;
 import lombok.AllArgsConstructor;
@@ -28,6 +25,7 @@ import java.util.stream.Collectors;
 public class RecipeService {
     private final UserClient userService;
     private final RecipeRepository recipeRepository;
+    private final ImageService imageService;
 
     // TODO: Proper recipe dto!
 
@@ -47,7 +45,7 @@ public class RecipeService {
                     .title(cmd.title())
                     .description(cmd.description())
                     .author(new CachedUser(user))
-                    .ingredients(cmd.ingredientList())
+                    .ingredients(cmd.ingredients().stream().map(ingredient -> KeyType.parse(ingredient).ensureValid(KeyType.INGREDIENT)).collect(Collectors.toList()))
                     .categories(cmd.categories())
                     .difficulty(cmd.difficulty())
                     .titlePictureID(imageUrl)
@@ -63,21 +61,7 @@ public class RecipeService {
         }
     }
 
-
-    private final ImageService imageService;
     /*
-    
-    public Recipe likeRecipe(Recipe existingRecipe) {
-        // TODO: fix to convention get recipe here.
-
-        return this.recipeRepository.save(existingRecipe.toBuilder().likes(existingRecipe.getLikes() + 1).build());
-    }
-
-    public Recipe dislikeRecipe(Recipe existingRecipe) {
-        // TODO: fix to convention get recipe here.
-
-        return this.recipeRepository.save(existingRecipe.toBuilder().likes(Math.max(existingRecipe.getLikes() - 1, 0)).build());
-    }
 
     public Recipe updateLikes(Recipe existingRecipe, UpdateLikesCommand updateLikesCommand) {
         Recipe updatedRecipe = existingRecipe.toBuilder()
@@ -85,20 +69,39 @@ public class RecipeService {
                 .build();
 
         return recipeRepository.save(updatedRecipe);
-    }
-
-    public List<Recipe> findRecipes() {
-
-        List<Recipe> allRecipes = this.recipeRepository.findAllBy(new Query());
-
-        List<RecipeDTO> RecipesDTOS = allRecipes.stream().map(s -> new RecipeDTO(s.getBuilding(), s.getFloor(), s.getRoomNumber()))
-                .collect(Collectors.toList());
-
-        return RecipesDTOS;
     }*/
 
-    public Optional<Recipe> findById(Key id) {
-        return this.recipeRepository.findById(id);
+    public Optional<RecipeDto> likeRecipe(Key key) {
+        final Optional<Recipe> recipe = this.recipeRepository.findById(key);
+
+        return recipe.map(found -> {
+            found.setLikes(found.getLikes() + 1);
+
+            this.recipeRepository.save(found);
+
+            return new RecipeDto(found);
+        });
+    }
+
+    public Optional<RecipeDto> dislikeRecipe(Key key) {
+        final Optional<Recipe> recipe = this.recipeRepository.findById(key);
+
+        return recipe.map(found -> {
+            found.setLikes(Math.max(found.getLikes() - 1, 0));
+
+            this.recipeRepository.save(found);
+
+            return new RecipeDto(found);
+        });
+    }
+
+    public List<RecipeDto> findRecipes() {
+        // TODO: Paging!!!
+        return this.recipeRepository.findAll().stream().map(RecipeDto::new).collect(Collectors.toList());
+    }
+
+    public Optional<RecipeDto> findById(Key id) {
+        return this.recipeRepository.findById(id).map(RecipeDto::new);
     }
 
     public void deleteById(Key id) {
@@ -106,6 +109,7 @@ public class RecipeService {
     }
 
     public List<Recipe> findWithQuery(Query query){
+        // TODO: DTO!
         return recipeRepository.findAllBy(query);
     }
 }

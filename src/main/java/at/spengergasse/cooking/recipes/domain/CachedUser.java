@@ -12,7 +12,7 @@ import org.springframework.data.mongodb.core.mapping.Document;
 @AllArgsConstructor
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class CachedUser {
-    private Key userKey;
+    private Key key;
     private String username;
 
     public CachedUser(UserDto userDto) {

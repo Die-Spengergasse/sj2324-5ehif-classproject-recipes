@@ -1,6 +1,8 @@
 package at.spengergasse.cooking.recipes.domain;
 
 import at.spengergasse.cooking.recipes.domain.utils.key.Key;
+import at.spengergasse.cooking.recipes.domain.utils.key.KeyType;
+import at.spengergasse.cooking.recipes.service.recipe.RecipeDto;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
@@ -20,7 +22,7 @@ import java.util.List;
 @Setter
 public class Recipe {
     @Id
-    @NonNull
+    @NonNull // TODO: mixture of annotation lombok, jakarta etc. this gud?
     private Key key;
     @NonNull
     private CachedUser author;
@@ -31,13 +33,17 @@ public class Recipe {
     @NotBlank(message = "Description must not be blank")
     private String description;
     @Size(min = 1)
-    private List<Ingredient> ingredients;
+    private List<Key> ingredients;
     private ZonedDateTime creationTS;
     @Min(0)
-    private int likes;
+    private long likes;
+    @NonNull
     private NutrientSummary nutrientSummary;
+    @NonNull
     private List<Category> categories;
+    @NonNull
     private List<Comment> comments;
+    @NonNull
     private Difficulty difficulty;
     private String titlePictureID;
 }

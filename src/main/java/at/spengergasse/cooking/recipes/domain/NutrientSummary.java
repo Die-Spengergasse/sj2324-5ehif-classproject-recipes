@@ -1,5 +1,6 @@
 package at.spengergasse.cooking.recipes.domain;
 
+import at.spengergasse.cooking.recipes.service.recipe.NutrientSummaryDto;
 import jakarta.validation.constraints.Min;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -19,4 +20,8 @@ public class NutrientSummary {
     private double fats;
     @Min(0)
     private double protein;
+
+    public NutrientSummary(NutrientSummaryDto dto) {
+        this(dto.kcal(), dto.carbs(), dto.fats(), dto.protein());
+    }
 }
