@@ -41,7 +41,7 @@ public class RecipeController {
     private RecipeRepository recipeRepository;
 
     @GetMapping
-    public HttpEntity<List<Recipe>> getRecipes(@RequestParam(value = "filterOr", required = false) String filterOr,
+    public HttpEntity<List<RecipeDto>> getRecipes(@RequestParam(value = "filterOr", required = false) String filterOr,
                                                @RequestParam(value = "filterAnd", required = false) String filterAnd) {
 
         FilterCriteriaBuilder criteriaBuilder = new FilterCriteriaBuilder();
@@ -51,7 +51,7 @@ public class RecipeController {
 
         Query query = criteriaBuilder.addCondition(andConditions, orConditions);
 
-        List<Recipe> allRecipes = recipeService.findWithQuery(query);
+        List<RecipeDto> allRecipes = recipeService.findWithQuery(query);
 
         return ResponseEntity.ok().body(allRecipes);
     }

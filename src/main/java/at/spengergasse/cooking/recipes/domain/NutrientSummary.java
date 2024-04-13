@@ -8,7 +8,6 @@ import lombok.Setter;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 @Document
-@AllArgsConstructor
 @Getter
 @Setter
 public class NutrientSummary {
@@ -20,6 +19,16 @@ public class NutrientSummary {
     private double fats;
     @Min(0)
     private double protein;
+
+    public NutrientSummary() {
+    }
+
+    public NutrientSummary(int kcal, double carbs, double fats, double protein) {
+        this.kcal = kcal;
+        this.carbs = carbs;
+        this.fats = fats;
+        this.protein = protein;
+    }
 
     public NutrientSummary(NutrientSummaryDto dto) {
         this(dto.kcal(), dto.carbs(), dto.fats(), dto.protein());

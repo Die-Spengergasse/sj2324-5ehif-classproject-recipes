@@ -17,6 +17,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.time.ZonedDateTime;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -110,8 +111,18 @@ public class RecipeService {
         this.recipeRepository.deleteById(id);
     }
 
-    public List<Recipe> findWithQuery(Query query){
-        // TODO: DTO!
-        return recipeRepository.findAllBy(query);
+    public List<RecipeDto> findWithQuery(Query query) {
+        List<Recipe> recipes = recipeRepository.findAllBy(query);
+
+        if (recipes == null) {
+            return Collections.emptyList();
+        }
+
+        List<RecipeDto> recipeDtos = recipes.stream()
+                .map(RecipeDto::new)
+                .collect(Collectors.toList());
+
+        return recipeDtos;
     }
+
 }

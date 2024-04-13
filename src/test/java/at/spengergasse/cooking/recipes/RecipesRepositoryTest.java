@@ -49,7 +49,7 @@ public class RecipesRepositoryTest {
                                 ZonedDateTime.of(LocalDate.of(2023, 11, 15),
                                         LocalTime.of(12, 32),
                                         ZoneId.of("America/Vancouver")))))
-                .ingredients(List.of(new Ingredient("Pasta", KeyType.INGREDIENT.randomKey(), 100, Unit.GRAMS)))
+                .ingredients(List.of())
                 .nutrientSummary(new NutrientSummary(10, 5, 5, 5))
                 .titlePictureID("picture123")
                 .title("my recipe")
