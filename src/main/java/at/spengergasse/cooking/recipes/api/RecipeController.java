@@ -12,7 +12,6 @@ import at.spengergasse.cooking.recipes.service.recipe.commands.CreateRecipeComma
 import at.spengergasse.cooking.recipes.service.recipe.commands.UpdateLikesCommand;
 import jakarta.validation.Valid;
 import lombok.extern.log4j.Log4j2;
-import org.hibernate.service.spi.ServiceException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.http.HttpEntity;
@@ -80,6 +79,7 @@ public class RecipeController {
         return ResponseEntity.ok().body(recipe);
     }
 
+    /*
     @PostMapping("/{key}/like")
     public HttpEntity<Recipe> like(@PathVariable String key) {
         final Optional<Recipe> existingRecipe = this.recipeService.findById(KeyType.parse(key).ensureValid(KeyType.RECIPE));
@@ -118,7 +118,7 @@ public class RecipeController {
         Recipe updatedRecipe = recipeService.updateLikes(existingRecipe.get(), updateLikesCommand);
 
         return ResponseEntity.ok().body(updatedRecipe);
-    }
+    }*/
 
     @DeleteMapping("/{key}")
     public HttpEntity<Recipe> deletRecipe(@PathVariable String key) {

@@ -65,6 +65,7 @@ public class RecipeService {
 
 
     private final ImageService imageService;
+    /*
     
     public Recipe likeRecipe(Recipe existingRecipe) {
         // TODO: fix to convention get recipe here.
@@ -94,7 +95,7 @@ public class RecipeService {
                 .collect(Collectors.toList());
 
         return RecipesDTOS;
-    }
+    }*/
 
     public Optional<Recipe> findById(Key id) {
         return this.recipeRepository.findById(id);
