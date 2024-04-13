@@ -1,5 +1,6 @@
 package at.spengergasse.cooking.recipes.service.recipe;
 
+import at.spengergasse.cooking.recipes.domain.NutrientSummary;
 import at.spengergasse.cooking.recipes.domain.Recipe;
 import at.spengergasse.cooking.recipes.domain.CachedUser;
 import at.spengergasse.cooking.recipes.domain.utils.key.Key;
@@ -51,6 +52,7 @@ public class RecipeService {
                     .titlePictureID(imageUrl)
                     .creationTS(ZonedDateTime.now())
                     .likes(0)
+                    .nutrientSummary(new NutrientSummary(0, 0D, 0D, 0D)) // todo: fetch from ingredients
                     .comments(new ArrayList<>())
                     .key(KeyType.RECIPE.randomKey())
                     .build();

@@ -9,7 +9,7 @@ public record CreateRecipeCommand(
         String title,
         String description,
         List<String> ingredients,
-        List<Category> categories,
+        List<Category> categories, // TODO: Fix to dto
         Difficulty difficulty,
         String titlePictureID,
         String authorKey

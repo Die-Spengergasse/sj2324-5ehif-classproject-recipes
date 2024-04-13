@@ -34,6 +34,7 @@ public class Recipe {
     private String description;
     @Size(min = 1)
     private List<Key> ingredients;
+    @NonNull
     private ZonedDateTime creationTS;
     @Min(0)
     private long likes;
