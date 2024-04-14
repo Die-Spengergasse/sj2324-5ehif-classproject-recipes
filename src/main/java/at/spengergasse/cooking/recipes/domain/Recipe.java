@@ -1,42 +1,43 @@
 package at.spengergasse.cooking.recipes.domain;
 
+import at.spengergasse.cooking.recipes.domain.utils.key.Key;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.NonNull;
-import lombok.RequiredArgsConstructor;
+import lombok.*;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.time.ZonedDateTime;
 import java.util.List;
 
-@Builder
+@Builder(toBuilder = true)
 @RequiredArgsConstructor
 @Document("recipes")
 @AllArgsConstructor
+@NoArgsConstructor(access = AccessLevel.PRIVATE)
+@Getter
+@Setter
 public class Recipe {
     @Id
     @NonNull
-    public String key;
+    private Key key;
     @NonNull
-    public User author;
+    private CachedUser author;
     @NonNull
     @NotBlank(message = "Title must not be blank")
-    public String title;
+    private String title;
     @NonNull
     @NotBlank(message = "Description must not be blank")
-    public String description;
+    private String description;
     @Size(min = 1)
-    public List<Ingredient> ingredients;
-    public ZonedDateTime creationTS;
+    private List<Ingredient> ingredients;
+    private ZonedDateTime creationTS;
     @Min(0)
-    public int likes;
-    public NutrientSummary nutrientSummary;
-    public List<Category> categories;
-    public List<Comment> comments;
-    public Difficulty difficulty;
-    public String titlePictureID;
+    private int likes;
+    private NutrientSummary nutrientSummary;
+    private List<Category> categories;
+    private List<Comment> comments;
+    private Difficulty difficulty;
+    private String titlePictureID;
 }
