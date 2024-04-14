@@ -3,13 +3,12 @@ package at.spengergasse.cooking.recipes.api;
 import at.spengergasse.cooking.recipes.domain.Recipe;
 import at.spengergasse.cooking.recipes.domain.utils.key.Key;
 import at.spengergasse.cooking.recipes.domain.utils.key.KeyType;
-import at.spengergasse.cooking.recipes.persistence.RecipeRepository;
 import at.spengergasse.cooking.recipes.service.recipe.RecipeService;
 import at.spengergasse.cooking.recipes.service.recipe.commands.CreateRecipeCommand;
 import at.spengergasse.cooking.recipes.service.recipe.commands.UpdateLikesCommand;
+import jakarta.persistence.PersistenceException;
 import jakarta.validation.Valid;
 import lombok.extern.log4j.Log4j2;
-import org.hibernate.service.spi.ServiceException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpStatus;
@@ -18,7 +17,6 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.sql.rowset.serial.SerialException;
-import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
@@ -32,16 +30,23 @@ public class RecipeController {
     private RecipeService recipeService;
 
     @GetMapping
-    public HttpEntity<List<Recipe>> getAllRecipes() {
+    public HttpEntity<List<RecipeDTO>> getAllRecipes() {
         List<Recipe> allRecipes = this.recipeService.findRecipes();
-        return ResponseEntity.ok().body(allRecipes);
+        List<RecipeDTO> allRecipeDTOs = allRecipes.stream().map(r -> new RecipeDTO(r.getKey().toString(), r.getAuthor().getUsername(), r.getTitle(), r.getDescription(), r.getIngredients().stream().map(i -> new IngredientDTO(i.getKey().toString(), i.getName(), i.getAmount(), i.getUnit())).toList(), r.getCreationTS(), r.getLikes(), r.getNutrientSummary(), r.getCategories(), r.getComments(), r.getDifficulty(), r.getTitlePictureID()))
+                .toList();
+        return ResponseEntity.ok().body(allRecipeDTOs);
     }
 
     @GetMapping("/{key}")
-    public HttpEntity<Recipe> getRecipeByKey(@PathVariable String key) {
-        final Optional<Recipe> recipe = this.recipeService.findById(KeyType.parse(key).ensureValid(KeyType.RECIPE));
+    public ResponseEntity<RecipeDTO> getRecipeByKey(@PathVariable String key) {
+        try{
+            final Optional<Recipe> r = this.recipeService.findById(KeyType.parse(key).ensureValid(KeyType.RECIPE));
+            RecipeDTO recipeDTO = new RecipeDTO(r.get().getKey().toString(), r.get().getAuthor().getUsername(), r.get().getTitle(), r.get().getDescription(), r.get().getIngredients().stream().map(i -> new IngredientDTO(i.getKey().toString(), i.getName(), i.getAmount(), i.getUnit())).toList(), r.get().getCreationTS(), r.get().getLikes(), r.get().getNutrientSummary(), r.get().getCategories(), r.get().getComments(), r.get().getDifficulty(), r.get().getTitlePictureID());
 
-        return recipe.map(value -> ResponseEntity.ok().body(value)).orElseGet(() -> ResponseEntity.notFound().build());
+            return r.map(value -> ResponseEntity.ok(recipeDTO)).orElseGet(() -> ResponseEntity.notFound().build());
+        }catch (PersistenceException e) {
+            return ResponseEntity.notFound().build();
+        }
     }
 
     @PostMapping("/withImage")

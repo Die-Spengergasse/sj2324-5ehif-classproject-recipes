@@ -1,6 +1,5 @@
 package at.spengergasse.cooking.recipes.service.recipe;
 
-import at.spengergasse.cooking.recipes.api.RecipeDTO;
 import at.spengergasse.cooking.recipes.domain.Recipe;
 import at.spengergasse.cooking.recipes.domain.CachedUser;
 import at.spengergasse.cooking.recipes.domain.utils.key.Key;
@@ -9,7 +8,6 @@ import at.spengergasse.cooking.recipes.persistence.RecipeRepository;
 import at.spengergasse.cooking.recipes.service.image.ImageService;
 import at.spengergasse.cooking.recipes.service.recipe.commands.CreateRecipeCommand;
 import at.spengergasse.cooking.recipes.service.recipe.commands.UpdateLikesCommand;
-import at.spengergasse.cooking.recipes.service.user.PreferenceDto;
 import at.spengergasse.cooking.recipes.service.user.UserDto;
 import at.spengergasse.cooking.recipes.service.user.UserClient;
 import lombok.AllArgsConstructor;
@@ -20,7 +18,6 @@ import java.time.ZonedDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 @AllArgsConstructor
 @Service
@@ -85,7 +82,7 @@ public class RecipeService {
     }
 
     public List<Recipe> findRecipes() {
-return this.recipeRepository.findRecipes();
+        return this.recipeRepository.findRecipes();
     }
 
     public Optional<Recipe> findById(Key id) {

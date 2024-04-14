@@ -5,6 +5,8 @@ import at.spengergasse.cooking.recipes.service.user.UserDto;
 import java.time.ZonedDateTime;
 
 public record CommentDTO(
+
+        String key,
         UserDto userDto,
         String comment,
         CommentDTO commentDTO,

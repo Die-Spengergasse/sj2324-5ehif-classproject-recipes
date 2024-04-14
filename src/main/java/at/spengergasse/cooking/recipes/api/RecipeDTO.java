@@ -7,15 +7,16 @@ import java.time.ZonedDateTime;
 import java.util.List;
 
 public record RecipeDTO(
-        UserDto userDTO,
+        String key,
+        String autorUsername,
         String title,
         String description,
         List<IngredientDTO> ingredientDTOList,
         ZonedDateTime createionTS,
         int likes,
-        NutrientSummaryDTO nutrientSummaryDTO,
+        NutrientSummary nutrientSummaryDTO,
         List<Category> categories,
-        List<CommentDTO> commentDTOList,
+        List<Comment> commentDTOList,
         Difficulty difficulty,
         String titlePictureID
 ) {
