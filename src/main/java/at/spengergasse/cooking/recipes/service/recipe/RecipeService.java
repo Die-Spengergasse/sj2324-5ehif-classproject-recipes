@@ -32,8 +32,11 @@ public class RecipeService {
     // TODO: Proper recipe dto!
 
     public Recipe createRecipe(CreateRecipeCommand cmd, MultipartFile image){
-        final UserDto user = this.userService.getUser(KeyType.parse(cmd.authorKey()).ensureValid(KeyType.USER));
-
+        final Optional<UserDto> optionalUser = this.userService.getUser(KeyType.parse(cmd.authorKey()).ensureValid(KeyType.USER));
+        if (!optionalUser.isPresent()) {
+            throw new IllegalArgumentException("Unknown user key.");
+        }
+        UserDto user = optionalUser.get();
         String imageUrl = "";
 
         if(user != null) {

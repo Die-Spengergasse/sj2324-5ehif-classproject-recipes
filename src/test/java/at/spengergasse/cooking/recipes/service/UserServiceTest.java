@@ -35,8 +35,8 @@ class UserServiceTest {
     void setup() throws JsonProcessingException {
         wireMockServer.start();
         List<UserDto> userList = new ArrayList<>();
-        userList.add(new UserDto("USREh4PpDmtxvC", "Max123", "Mayer", "Max", "123@gmail.com", "mockPassword", new ArrayList<>()));
-        userList.add(new UserDto("USRTp90VKuD6gP", "Adrian123", "Mayer", "Adrian", "adrian123@gmail.com", "mockPassword", new ArrayList<>()));
+        userList.add(new UserDto("USREh4PpDmtxvC", "Max123"));
+        userList.add(new UserDto("USRTp90VKuD6gP", "Adrian123"));
 
         WireMock.configureFor("localhost", wireMockServer.getMappedPort(8080));
 
