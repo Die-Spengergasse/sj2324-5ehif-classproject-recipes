@@ -15,6 +15,6 @@ import java.time.Duration;
 
 @FeignClient(value = "users", url = "${recipe.user.endpoint}")
 public interface UserClient {
-    @RequestMapping(method = RequestMethod.GET, value = "/users/{id}")
+    @RequestMapping(method = RequestMethod.GET, value = "/user/{id}")
     public UserDto getUser(@PathVariable("id") Key id);
 }

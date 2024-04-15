@@ -9,7 +9,7 @@ import java.util.Random;
 @Getter
 @AllArgsConstructor
 public enum KeyType {
-    USER("USR", 10),
+    USER("USR", 14),
     INGREDIENT("ING", 10),
     RECIPE("REC", 10);
 
@@ -63,7 +63,7 @@ public enum KeyType {
                 final String value = key.substring(type.getPrefix().length(), key.length() - 1);
 
                 if(type.getLength() != value.length()) {
-                    throw new IllegalArgumentException("Key value length mismatch");
+                    throw new IllegalArgumentException("Key value length mismatch (expected: " + type.getLength() + "; actual: " + value.length() + ")");
                 }
 
                 return new Key(type.getPrefix(), value, key.substring(key.length() - 1));

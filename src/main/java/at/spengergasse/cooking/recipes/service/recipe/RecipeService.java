@@ -7,10 +7,13 @@ import at.spengergasse.cooking.recipes.domain.utils.key.Key;
 import at.spengergasse.cooking.recipes.domain.utils.key.KeyType;
 import at.spengergasse.cooking.recipes.persistence.RecipeRepository;
 import at.spengergasse.cooking.recipes.service.image.ImageService;
+import at.spengergasse.cooking.recipes.service.ingredient.IngredientClient;
 import at.spengergasse.cooking.recipes.service.recipe.commands.CreateRecipeCommand;
 import at.spengergasse.cooking.recipes.service.user.UserDto;
 import at.spengergasse.cooking.recipes.service.user.UserClient;
 import lombok.AllArgsConstructor;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
@@ -25,14 +28,17 @@ import java.util.stream.Collectors;
 @AllArgsConstructor
 @Service
 public class RecipeService {
+    private static final Logger LOGGER = LoggerFactory.getLogger(RecipeService.class);
+
     private final UserClient userService;
     private final RecipeRepository recipeRepository;
+    private final IngredientClient ingredientClient;
     private final ImageService imageService;
 
-    // TODO: Proper recipe dto!
-
-    public Recipe createRecipe(CreateRecipeCommand cmd, MultipartFile image){
+    public RecipeDto createRecipe(CreateRecipeCommand cmd, MultipartFile image){
         final UserDto user = this.userService.getUser(KeyType.parse(cmd.authorKey()).ensureValid(KeyType.USER));
+
+        LOGGER.info("skibidi yes user: " + user);
 
         String imageUrl = "";
 
@@ -58,7 +64,7 @@ public class RecipeService {
                     .key(KeyType.RECIPE.randomKey())
                     .build();
 
-            return recipeRepository.save(recipe);
+            return new RecipeDto(recipeRepository.save(recipe));
         } else {
             throw new IllegalArgumentException("Unknown user key.");
         }
