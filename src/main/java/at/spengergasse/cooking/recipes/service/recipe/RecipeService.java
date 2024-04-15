@@ -12,6 +12,7 @@ import at.spengergasse.cooking.recipes.service.recipe.commands.CreateRecipeComma
 import at.spengergasse.cooking.recipes.service.user.UserDto;
 import at.spengergasse.cooking.recipes.service.user.UserClient;
 import lombok.AllArgsConstructor;
+import lombok.extern.log4j.Log4j2;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.data.mongodb.core.query.Query;
@@ -27,9 +28,8 @@ import java.util.stream.Collectors;
 
 @AllArgsConstructor
 @Service
+@Log4j2
 public class RecipeService {
-    private static final Logger LOGGER = LoggerFactory.getLogger(RecipeService.class);
-
     private final UserClient userService;
     private final RecipeRepository recipeRepository;
     private final IngredientClient ingredientClient;
@@ -43,7 +43,7 @@ public class RecipeService {
             throw new IllegalArgumentException("Unknown user key.");
         }
         UserDto user = optionalUser.get();
-        LOGGER.info("skibidi yes user: " + user);
+        log.info("skibidi yes user: " + user);
 
         String imageUrl = "";
 
