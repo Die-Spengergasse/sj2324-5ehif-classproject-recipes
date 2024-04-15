@@ -1,0 +1,40 @@
+GET http://{{host}}:{{port}}/api/recipes
+
+###
+
+POST http://{{host}}:{{port}}/api/recipes
+Content-Type:application/json
+
+{
+  "authorKey": "USRacXJqFesPSHjAUJ",
+  "description": "A test recipe",
+  "title": "Lasagna",
+  "categories": [
+    {
+      "name": "Test",
+      "parentId": null
+    }
+  ],
+  "likes": 5,
+  "difficulty": "BEGINNER",
+  "creationTS": "2023-11-14T09:26:00Z",
+  "ingredients": [
+  ],
+  "nutrientSummary": {
+    "calories": 10,
+    "protein": 5,
+    "carbohydrates": 5,
+    "fat": 5
+  },
+  "titlePictureID": "picture123"
+}
+
+###
+
+
+PUT http://{{host}}:{{port}}/api/recipes/RECKQaEmnYFX1M
+Content-Type:application/json
+
+{
+  "likes": 10
+}
