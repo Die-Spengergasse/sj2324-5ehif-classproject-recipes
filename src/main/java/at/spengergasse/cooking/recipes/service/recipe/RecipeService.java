@@ -54,17 +54,20 @@ public class RecipeService {
                 imageUrl = imageService.uploadImage(image);
             }
 
+            final var ingredients = cmd.ingredients().stream().map(ingredient -> KeyType.parse(ingredient).ensureValid(KeyType.INGREDIENT)).collect(Collectors.toList());
+            final var summary = this.ingredientClient.calculateSummary(ingredients.toArray(new Key[0]));
+
             final Recipe recipe = Recipe.builder()
                     .title(cmd.title())
                     .description(cmd.description())
                     .author(new CachedUser(user))
-                    .ingredients(cmd.ingredients().stream().map(ingredient -> KeyType.parse(ingredient).ensureValid(KeyType.INGREDIENT)).collect(Collectors.toList()))
+                    .ingredients(ingredients)
                     .categories(cmd.categories())
                     .difficulty(cmd.difficulty())
                     .titlePictureID(imageUrl)
                     .creationTS(ZonedDateTime.now())
                     .likes(0)
-                    .nutrientSummary(new NutrientSummary(0, 0D, 0D, 0D)) // todo: fetch from ingredients
+                    .nutrientSummary(summary)
                     .comments(new ArrayList<>())
                     .key(KeyType.RECIPE.randomKey())
                     .build();

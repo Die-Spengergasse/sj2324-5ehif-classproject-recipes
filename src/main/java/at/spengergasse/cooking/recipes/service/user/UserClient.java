@@ -16,6 +16,6 @@ import java.util.Optional;
 
 @FeignClient(value = "users", url = "${recipe.user.endpoint}")
 public interface UserClient {
-    @RequestMapping(method = RequestMethod.GET, value = "/users/{id}")
+    @RequestMapping(method = RequestMethod.GET, value = "/User/{id}")
     public Optional<UserDto> getUser(@PathVariable("id") Key id);
 }

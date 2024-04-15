@@ -19,10 +19,6 @@ Content-Type:application/json
   "difficulty": "BEGINNER",
   "creationTS": "2023-11-14T09:26:00Z",
   "ingredients": [
-<<<<<<< HEAD
-=======
-
->>>>>>> 798f534 (Fix inter-service comm)
   ],
   "nutrientSummary": {
     "calories": 10,
