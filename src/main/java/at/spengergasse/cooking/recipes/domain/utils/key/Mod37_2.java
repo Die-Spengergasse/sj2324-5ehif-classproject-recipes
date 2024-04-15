@@ -1,4 +1,4 @@
-package at.spengergasse.cooking.recipes.domain.utils;
+package at.spengergasse.cooking.recipes.domain.utils.key;
 
 class Mod37_2 extends PureSystemCalculator {
 
@@ -14,7 +14,7 @@ class Mod37_2 extends PureSystemCalculator {
 
     @Override
     protected String getCharacterSet() {
-        return "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ*";
+        return KeyType.CHARACTERS;
     }
 
     @Override

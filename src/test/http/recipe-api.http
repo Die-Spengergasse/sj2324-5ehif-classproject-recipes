@@ -1,16 +1,14 @@
-GET http://{{host}}:{{port}}/api/recipes/
+GET http://{{host}}:{{port}}/api/recipes
 
 ###
 
-POST http://{{host}}:{{port}}/api/recipes/
+POST http://{{host}}:{{port}}/api/recipes
 Content-Type:application/json
 
 {
-  "author": {
-    "id": "<randomKey>",
-    "name": "Thomas"
-  },
+  "authorKey": "USRacXJqFesPSHjAUJ",
   "description": "A test recipe",
+  "title": "Lasagna",
   "categories": [
     {
       "name": "Test",
@@ -18,27 +16,9 @@ Content-Type:application/json
     }
   ],
   "likes": 5,
-  "key": "<randomKey>",
   "difficulty": "BEGINNER",
   "creationTS": "2023-11-14T09:26:00Z",
-  "comments": [
-    {
-      "user": {
-        "id": "<randomKey>",
-        "name": "Billy Bob"
-      },
-      "text": "Very Cool Test",
-      "replyTo": null,
-      "timestamp": "2023-11-15T12:32:00-08:00[America/Vancouver]"
-    }
-  ],
   "ingredients": [
-    {
-      "name": "Pasta",
-      "id": "<randomKey>",
-      "quantity": 100,
-      "unit": "GRAMS"
-    }
   ],
   "nutrientSummary": {
     "calories": 10,
@@ -47,4 +27,14 @@ Content-Type:application/json
     "fat": 5
   },
   "titlePictureID": "picture123"
+}
+
+###
+
+
+PUT http://{{host}}:{{port}}/api/recipes/RECKQaEmnYFX1M
+Content-Type:application/json
+
+{
+  "likes": 10
 }

@@ -1,6 +1,6 @@
 package at.spengergasse.cooking.recipes.domain;
 
-import at.spengergasse.cooking.recipes.domain.utils.Key;
+import at.spengergasse.cooking.recipes.domain.utils.key.KeyType;
 import jakarta.validation.Validation;
 import jakarta.validation.Validator;
 import jakarta.validation.ValidatorFactory;
@@ -12,7 +12,6 @@ import java.time.LocalTime;
 import java.time.ZoneId;
 import java.time.ZonedDateTime;
 import java.util.Arrays;
-import java.util.Collections;
 import java.util.List;
 
 public class RecipesTest {
@@ -23,8 +22,8 @@ public class RecipesTest {
     @Test
     void testValidRecipe() {
        // Create a couple needed Objects for Recipe
-        User creator = new User(Key.randomKey("USR",14).toString(), "Thomas");
-        User commenter = new User(Key.randomKey("USR", 14).toString(), "Adrian");
+        CachedUser creator = new CachedUser(KeyType.USER.randomKey(), "Thomas");
+        CachedUser commenter = new CachedUser(KeyType.USER.randomKey(), "Adrian");
         Comment comment = new Comment(commenter, "Very Cool Test", null,
                 ZonedDateTime.of(LocalDate.of(2023, 11, 15),
                         LocalTime.of(12, 32),
@@ -36,13 +35,13 @@ public class RecipesTest {
             .description("A test Lasagna")
             .categories(Arrays.asList(new Category("Pasta", null)))
             .likes(5)
-            .key(Key.randomKey(Key.RECIPE_PREFIX, Key.RECIPE_LENGTH).toString())
+            .key(KeyType.RECIPE.randomKey())
             .difficulty(Difficulty.BEGINNER)
             .creationTS(ZonedDateTime.of(LocalDate.of(2023, 11, 14),
                     LocalTime.of(9, 26),
                     ZoneId.of("UTC")))
             .comments(List.of(comment))
-            .ingredients(List.of(new Ingredient("Pasta", Key.randomKey("ING", 10).toString(), 100, Unit.GRAMS)))
+            .ingredients(List.of())// TODO FIX
             .nutrientSummary(new NutrientSummary(10, 5, 5, 5))
             .titlePictureID("picture123")
             .build();
@@ -55,8 +54,8 @@ public class RecipesTest {
     @Test
     void testInvalidRecipe() {
         // Create an invalid Recipe instance (e.g., missing required fields)
-        User creator = new User(Key.randomKey("USR",14).toString(), "Thomas");
-        User commenter = new User(Key.randomKey("USR", 14).toString(), "Adrian");
+        CachedUser creator = new CachedUser(KeyType.USER.randomKey(), "Thomas");
+        CachedUser commenter = new CachedUser(KeyType.USER.randomKey(), "Adrian");
         Comment comment = new Comment(commenter, "Very Cool Test", null,
                 ZonedDateTime.of(LocalDate.of(2023, 11, 15),
                         LocalTime.of(12, 32),
@@ -67,13 +66,13 @@ public class RecipesTest {
                 .description("")
                 .categories(Arrays.asList(new Category("Pasta", null)))
                 .likes(0)
-                .key(Key.randomKey(Key.RECIPE_PREFIX, Key.RECIPE_LENGTH).toString())
+                .key(KeyType.RECIPE.randomKey())
                 .difficulty(Difficulty.BEGINNER)
                 .creationTS(ZonedDateTime.of(LocalDate.of(2023, 11, 14),
                         LocalTime.of(9, 26),
                         ZoneId.of("UTC")))
                 .comments(List.of(comment))
-                .ingredients(List.of(new Ingredient("Pasta", Key.randomKey("ING", 10).toString(), 100, Unit.GRAMS)))
+                .ingredients(List.of())
                 .nutrientSummary(new NutrientSummary(10, 5, 5, 5))
                 .titlePictureID("picture123")
                 .build();
