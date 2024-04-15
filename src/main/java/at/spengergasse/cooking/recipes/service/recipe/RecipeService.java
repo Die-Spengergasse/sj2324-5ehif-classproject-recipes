@@ -7,10 +7,13 @@ import at.spengergasse.cooking.recipes.domain.utils.key.Key;
 import at.spengergasse.cooking.recipes.domain.utils.key.KeyType;
 import at.spengergasse.cooking.recipes.persistence.RecipeRepository;
 import at.spengergasse.cooking.recipes.service.image.ImageService;
+import at.spengergasse.cooking.recipes.service.ingredient.IngredientClient;
 import at.spengergasse.cooking.recipes.service.recipe.commands.CreateRecipeCommand;
 import at.spengergasse.cooking.recipes.service.user.UserDto;
 import at.spengergasse.cooking.recipes.service.user.UserClient;
 import lombok.AllArgsConstructor;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
@@ -65,8 +68,8 @@ public class RecipeService {
                     .comments(new ArrayList<>())
                     .key(KeyType.RECIPE.randomKey())
                     .build();
-
-            return recipeRepository.save(recipe);
+            Recipe saved = recipeRepository.save(recipe);
+            return new RecipeDto(saved);
         } else {
             throw new IllegalArgumentException("Unknown user key.");
         }
