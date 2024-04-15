@@ -25,18 +25,23 @@ import java.util.stream.Collectors;
 @AllArgsConstructor
 @Service
 public class RecipeService {
+    private static final Logger LOGGER = LoggerFactory.getLogger(RecipeService.class);
+
     private final UserClient userService;
     private final RecipeRepository recipeRepository;
+    private final IngredientClient ingredientClient;
     private final ImageService imageService;
 
     // TODO: Proper recipe dto!
 
-    public Recipe createRecipe(CreateRecipeCommand cmd, MultipartFile image){
+    public RecipeDto createRecipe(CreateRecipeCommand cmd, MultipartFile image){
         final Optional<UserDto> optionalUser = this.userService.getUser(KeyType.parse(cmd.authorKey()).ensureValid(KeyType.USER));
         if (!optionalUser.isPresent()) {
             throw new IllegalArgumentException("Unknown user key.");
         }
         UserDto user = optionalUser.get();
+        LOGGER.info("skibidi yes user: " + user);
+
         String imageUrl = "";
 
         if(user != null) {

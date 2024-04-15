@@ -6,7 +6,7 @@ POST http://{{host}}:{{port}}/api/recipes
 Content-Type:application/json
 
 {
-  "authorKey": "USRTp90VKuD6gP",
+  "authorKey": "USRacXJqFesPSHjAUJ",
   "description": "A test recipe",
   "title": "Lasagna",
   "categories": [
@@ -16,10 +16,13 @@ Content-Type:application/json
     }
   ],
   "likes": 5,
-  "key": "<randomKey>",
   "difficulty": "BEGINNER",
   "creationTS": "2023-11-14T09:26:00Z",
   "ingredients": [
+<<<<<<< HEAD
+=======
+
+>>>>>>> 798f534 (Fix inter-service comm)
   ],
   "nutrientSummary": {
     "calories": 10,

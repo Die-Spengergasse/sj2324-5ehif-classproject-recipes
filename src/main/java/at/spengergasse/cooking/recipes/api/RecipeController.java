@@ -64,20 +64,20 @@ public class RecipeController {
     }
 
     @PostMapping("/withImage")
-    public HttpEntity<Recipe> createRecipeWithImage(@RequestPart("image") MultipartFile image,
+    public HttpEntity<RecipeDto> createRecipeWithImage(@RequestPart("image") MultipartFile image,
                                                     @RequestPart("recipe") @Valid CreateRecipeCommand createRecipeCommand) {
 
-        Recipe recipe = recipeService.createRecipe(createRecipeCommand, image);
+        RecipeDto recipe = recipeService.createRecipe(createRecipeCommand, image);
 
-        return ResponseEntity.ok().body(recipe);
+        return ResponseEntity.ok(recipe);
     }
 
     @PostMapping
-    public HttpEntity<Recipe> createRecipe(@RequestBody @Valid CreateRecipeCommand createRecipeCommand) {
+    public HttpEntity<RecipeDto> createRecipe(@RequestBody @Valid CreateRecipeCommand createRecipeCommand) {
         log.info("Created Recipe with Data: "+createRecipeCommand);
-        Recipe recipe = recipeService.createRecipe(createRecipeCommand, null);
+        RecipeDto recipe = recipeService.createRecipe(createRecipeCommand, null);
 
-        return ResponseEntity.ok().body(recipe);
+        return ResponseEntity.ok(recipe);
     }
 
     /*
