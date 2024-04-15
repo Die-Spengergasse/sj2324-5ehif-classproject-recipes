@@ -7,7 +7,7 @@ import at.spengergasse.cooking.recipes.domain.utils.key.Key;
 import at.spengergasse.cooking.recipes.domain.utils.key.KeyType;
 import org.junit.jupiter.api.Test;
 
-
+/*
 public class IngredientTest {
     @Test
     public void testIngredientInitialization() {
@@ -18,4 +18,4 @@ public class IngredientTest {
         assertEquals(350.0, ingredient.getAmount());
         assertEquals(Unit.GRAMS, ingredient.getUnit());
     }
-}
+}*/

@@ -1,15 +1,12 @@
 package at.spengergasse.cooking.recipes.service.user;
 
-import java.util.List;
+import at.spengergasse.cooking.recipes.domain.CachedUser;
 
 public record UserDto(
         String key,
-        String username,
-        String lastname,
-        String firstname,
-        String email,
-        String password,
-        List<PreferenceDto> preferences
+        String username
 ) {
-
+    public UserDto(CachedUser domain) {
+        this(domain.getKey() + "", domain.getUsername());
+    }
 }

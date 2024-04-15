@@ -22,21 +22,11 @@ public class MockUserService {
 
         UserDto mockUser = new UserDto(
                 "USREh4PpDmtxvC",
-                "Max123",
-                "Mayer",
-                "Max",
-                "123@gmail.com",
-                "mockPassword",
-                new ArrayList<>()
+                "Max123"
         );
         UserDto mockUser1 = new UserDto(
                 "USRTp90VKuD6gP",
-                "Adrian123",
-                "Mayer",
-                "Adrian",
-                "adrian123@gmail.com",
-                "mockPassword",
-                new ArrayList<>()
+                "Adrian123"
         );
         userList.add(mockUser);
         userList.add(mockUser1);

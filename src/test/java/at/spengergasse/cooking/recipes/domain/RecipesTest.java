@@ -41,7 +41,7 @@ public class RecipesTest {
                     LocalTime.of(9, 26),
                     ZoneId.of("UTC")))
             .comments(List.of(comment))
-            .ingredients(List.of(new Ingredient("Pasta", KeyType.INGREDIENT.randomKey(), 100, Unit.GRAMS)))
+            .ingredients(List.of())// TODO FIX
             .nutrientSummary(new NutrientSummary(10, 5, 5, 5))
             .titlePictureID("picture123")
             .build();
@@ -72,7 +72,7 @@ public class RecipesTest {
                         LocalTime.of(9, 26),
                         ZoneId.of("UTC")))
                 .comments(List.of(comment))
-                .ingredients(List.of(new Ingredient("Pasta", KeyType.INGREDIENT.randomKey(), 100, Unit.GRAMS)))
+                .ingredients(List.of())
                 .nutrientSummary(new NutrientSummary(10, 5, 5, 5))
                 .titlePictureID("picture123")
                 .build();

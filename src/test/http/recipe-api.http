@@ -8,7 +8,7 @@ Content-Type:application/json
 {
   "authorKey": "USRTp90VKuD6gP",
   "description": "A test recipe",
-  "title": "ABC",
+  "title": "Lasagna",
   "categories": [
     {
       "name": "Test",
@@ -20,12 +20,6 @@ Content-Type:application/json
   "difficulty": "BEGINNER",
   "creationTS": "2023-11-14T09:26:00Z",
   "ingredients": [
-    {
-      "name": "Pasta",
-      "id": "<randomKey>",
-      "quantity": 100,
-      "unit": "GRAMS"
-    }
   ],
   "nutrientSummary": {
     "calories": 10,
